@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.YkyMerchantMapper">
+    
+    <resultMap type="YkyMerchant" id="YkyMerchantResult">
+        <result property="merchantId"    column="merchantId"    />
+        <result property="machineBrand"    column="machineBrand"    />
+        <result property="machineSN"    column="machineSN"    />
+        <result property="underAgentNo"    column="underAgentNo"    />
+        <result property="agentTel"    column="agentTel"    />
+        <result property="merchantName"    column="merchantName"    />
+        <result property="legalName"    column="legalName"    />
+        <result property="merchantNo"    column="merchantNo"    />
+        <result property="telePhone"    column="telePhone"    />
+        <result property="accumTrans"    column="accumTrans"    />
+        <result property="firLevAgentNo"    column="firLevAgentNo"    />
+        <result property="creCardProcFee"    column="creCardProcFee"    />
+        <result property="debCardProcFee"    column="debCardProcFee"    />
+        <result property="debCardProcMax"    column="debCardProcMax"    />
+        <result property="wxProcFee"    column="wxProcFee"    />
+        <result property="aliPayProcFee"    column="aliPayProcFee"    />
+        <result property="yunCreCardFee"    column="yunCreCardFee"    />
+        <result property="yunDebCardFee"    column="yunDebCardFee"    />
+        <result property="singleStroke"    column="singleStroke"    />
+        <result property="posCharge"    column="posCharge"    />
+        <result property="vipCharge"    column="vipCharge"    />
+        <result property="simCharge"    column="simCharge"    />
+        <result property="firstTransTime"    column="firstTransTime"    />
+        <result property="creatTime"    column="creatTime"    />
+    </resultMap>
+
+    <sql id="selectYkyMerchantVo">
+        select merchantId, machineBrand, machineSN, underAgentNo, agentTel, merchantName, legalName, merchantNo, telePhone, accumTrans, firLevAgentNo, creCardProcFee, debCardProcFee, debCardProcMax, wxProcFee, aliPayProcFee, yunCreCardFee, yunDebCardFee, singleStroke, posCharge, vipCharge, simCharge, firstTransTime, creatTime from yky_merchant
+    </sql>
+
+    <select id="selectYkyMerchantList" parameterType="YkyMerchant" resultMap="YkyMerchantResult">
+        <include refid="selectYkyMerchantVo"/>
+        <where>  
+            <if test="machineBrand != null  and machineBrand != ''"> and machineBrand = #{machineBrand}</if>
+            <if test="machineSN != null  and machineSN != ''"> and machineSN = #{machineSN}</if>
+            <if test="underAgentNo != null  and underAgentNo != ''"> and underAgentNo = #{underAgentNo}</if>
+            <if test="agentTel != null  and agentTel != ''"> and agentTel = #{agentTel}</if>
+            <if test="merchantName != null  and merchantName != ''"> and merchantName = #{merchantName}</if>
+            <if test="legalName != null  and legalName != ''"> and legalName = #{legalName}</if>
+            <if test="merchantNo != null  and merchantNo != ''"> and merchantNo = #{merchantNo}</if>
+            <if test="telePhone != null  and telePhone != ''"> and telePhone = #{telePhone}</if>
+            <if test="accumTrans != null  and accumTrans != ''"> and accumTrans = #{accumTrans}</if>
+            <if test="firLevAgentNo != null  and firLevAgentNo != ''"> and firLevAgentNo = #{firLevAgentNo}</if>
+            <if test="creCardProcFee != null  and creCardProcFee != ''"> and creCardProcFee = #{creCardProcFee}</if>
+            <if test="debCardProcFee != null  and debCardProcFee != ''"> and debCardProcFee = #{debCardProcFee}</if>
+            <if test="debCardProcMax != null  and debCardProcMax != ''"> and debCardProcMax = #{debCardProcMax}</if>
+            <if test="wxProcFee != null  and wxProcFee != ''"> and wxProcFee = #{wxProcFee}</if>
+            <if test="aliPayProcFee != null  and aliPayProcFee != ''"> and aliPayProcFee = #{aliPayProcFee}</if>
+            <if test="yunCreCardFee != null  and yunCreCardFee != ''"> and yunCreCardFee = #{yunCreCardFee}</if>
+            <if test="yunDebCardFee != null  and yunDebCardFee != ''"> and yunDebCardFee = #{yunDebCardFee}</if>
+            <if test="singleStroke != null  and singleStroke != ''"> and singleStroke = #{singleStroke}</if>
+            <if test="posCharge != null  and posCharge != ''"> and posCharge = #{posCharge}</if>
+            <if test="vipCharge != null  and vipCharge != ''"> and vipCharge = #{vipCharge}</if>
+            <if test="simCharge != null  and simCharge != ''"> and simCharge = #{simCharge}</if>
+            <if test="firstTransTime != null "> and firstTransTime = #{firstTransTime}</if>
+            <if test="creatTime != null "> and creatTime = #{creatTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectYkyMerchantByMerchantId" parameterType="Long" resultMap="YkyMerchantResult">
+        <include refid="selectYkyMerchantVo"/>
+        where merchantId = #{merchantId}
+    </select>
+        
+    <insert id="insertYkyMerchant" parameterType="YkyMerchant" useGeneratedKeys="true" keyProperty="merchantId">
+        insert into yky_merchant
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="machineBrand != null">machineBrand,</if>
+            <if test="machineSN != null">machineSN,</if>
+            <if test="underAgentNo != null">underAgentNo,</if>
+            <if test="agentTel != null">agentTel,</if>
+            <if test="merchantName != null">merchantName,</if>
+            <if test="legalName != null">legalName,</if>
+            <if test="merchantNo != null">merchantNo,</if>
+            <if test="telePhone != null">telePhone,</if>
+            <if test="accumTrans != null">accumTrans,</if>
+            <if test="firLevAgentNo != null">firLevAgentNo,</if>
+            <if test="creCardProcFee != null">creCardProcFee,</if>
+            <if test="debCardProcFee != null">debCardProcFee,</if>
+            <if test="debCardProcMax != null">debCardProcMax,</if>
+            <if test="wxProcFee != null">wxProcFee,</if>
+            <if test="aliPayProcFee != null">aliPayProcFee,</if>
+            <if test="yunCreCardFee != null">yunCreCardFee,</if>
+            <if test="yunDebCardFee != null">yunDebCardFee,</if>
+            <if test="singleStroke != null">singleStroke,</if>
+            <if test="posCharge != null">posCharge,</if>
+            <if test="vipCharge != null">vipCharge,</if>
+            <if test="simCharge != null">simCharge,</if>
+            <if test="firstTransTime != null">firstTransTime,</if>
+            <if test="creatTime != null">creatTime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="machineBrand != null">#{machineBrand},</if>
+            <if test="machineSN != null">#{machineSN},</if>
+            <if test="underAgentNo != null">#{underAgentNo},</if>
+            <if test="agentTel != null">#{agentTel},</if>
+            <if test="merchantName != null">#{merchantName},</if>
+            <if test="legalName != null">#{legalName},</if>
+            <if test="merchantNo != null">#{merchantNo},</if>
+            <if test="telePhone != null">#{telePhone},</if>
+            <if test="accumTrans != null">#{accumTrans},</if>
+            <if test="firLevAgentNo != null">#{firLevAgentNo},</if>
+            <if test="creCardProcFee != null">#{creCardProcFee},</if>
+            <if test="debCardProcFee != null">#{debCardProcFee},</if>
+            <if test="debCardProcMax != null">#{debCardProcMax},</if>
+            <if test="wxProcFee != null">#{wxProcFee},</if>
+            <if test="aliPayProcFee != null">#{aliPayProcFee},</if>
+            <if test="yunCreCardFee != null">#{yunCreCardFee},</if>
+            <if test="yunDebCardFee != null">#{yunDebCardFee},</if>
+            <if test="singleStroke != null">#{singleStroke},</if>
+            <if test="posCharge != null">#{posCharge},</if>
+            <if test="vipCharge != null">#{vipCharge},</if>
+            <if test="simCharge != null">#{simCharge},</if>
+            <if test="firstTransTime != null">#{firstTransTime},</if>
+            <if test="creatTime != null">#{creatTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateYkyMerchant" parameterType="YkyMerchant">
+        update yky_merchant
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="machineBrand != null">machineBrand = #{machineBrand},</if>
+            <if test="machineSN != null">machineSN = #{machineSN},</if>
+            <if test="underAgentNo != null">underAgentNo = #{underAgentNo},</if>
+            <if test="agentTel != null">agentTel = #{agentTel},</if>
+            <if test="merchantName != null">merchantName = #{merchantName},</if>
+            <if test="legalName != null">legalName = #{legalName},</if>
+            <if test="merchantNo != null">merchantNo = #{merchantNo},</if>
+            <if test="telePhone != null">telePhone = #{telePhone},</if>
+            <if test="accumTrans != null">accumTrans = #{accumTrans},</if>
+            <if test="firLevAgentNo != null">firLevAgentNo = #{firLevAgentNo},</if>
+            <if test="creCardProcFee != null">creCardProcFee = #{creCardProcFee},</if>
+            <if test="debCardProcFee != null">debCardProcFee = #{debCardProcFee},</if>
+            <if test="debCardProcMax != null">debCardProcMax = #{debCardProcMax},</if>
+            <if test="wxProcFee != null">wxProcFee = #{wxProcFee},</if>
+            <if test="aliPayProcFee != null">aliPayProcFee = #{aliPayProcFee},</if>
+            <if test="yunCreCardFee != null">yunCreCardFee = #{yunCreCardFee},</if>
+            <if test="yunDebCardFee != null">yunDebCardFee = #{yunDebCardFee},</if>
+            <if test="singleStroke != null">singleStroke = #{singleStroke},</if>
+            <if test="posCharge != null">posCharge = #{posCharge},</if>
+            <if test="vipCharge != null">vipCharge = #{vipCharge},</if>
+            <if test="simCharge != null">simCharge = #{simCharge},</if>
+            <if test="firstTransTime != null">firstTransTime = #{firstTransTime},</if>
+            <if test="creatTime != null">creatTime = #{creatTime},</if>
+        </trim>
+        where merchantId = #{merchantId}
+    </update>
+
+    <delete id="deleteYkyMerchantByMerchantId" parameterType="Long">
+        delete from yky_merchant where merchantId = #{merchantId}
+    </delete>
+
+    <delete id="deleteYkyMerchantByMerchantIds" parameterType="String">
+        delete from yky_merchant where merchantId in 
+        <foreach item="merchantId" collection="array" open="(" separator="," close=")">
+            #{merchantId}
+        </foreach>
+    </delete>
+</mapper>

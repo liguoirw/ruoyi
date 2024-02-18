@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.JytzzMapper">
+    
+    <resultMap type="Jytzz" id="JytzzResult">
+        <result property="id"    column="id"    />
+        <result property="configAgentId"    column="configAgentId"    />
+        <result property="sendBatchNo"    column="sendBatchNo"    />
+        <result property="sendNum"    column="sendNum"    />
+        <result property="sendTime"    column="sendTime"    />
+        <result property="transDate"    column="transDate"    />
+        <result property="sign"    column="sign"    />
+    </resultMap>
+
+    <sql id="selectJytzzVo">
+        select id, configAgentId, sendBatchNo, sendNum, sendTime, transDate, sign from jytzz
+    </sql>
+
+    <select id="selectJytzzList" parameterType="Jytzz" resultMap="JytzzResult">
+        <include refid="selectJytzzVo"/>
+        <where>  
+            <if test="configAgentId != null  and configAgentId != ''"> and configAgentId = #{configAgentId}</if>
+            <if test="sendBatchNo != null  and sendBatchNo != ''"> and sendBatchNo = #{sendBatchNo}</if>
+            <if test="sendNum != null  and sendNum != ''"> and sendNum = #{sendNum}</if>
+            <if test="sendTime != null  and sendTime != ''"> and sendTime = #{sendTime}</if>
+            <if test="transDate != null  and transDate != ''"> and transDate = #{transDate}</if>
+            <if test="sign != null  and sign != ''"> and sign = #{sign}</if>
+        </where>
+    </select>
+
+    <select id="selectJytzzListzx" parameterType="Jytzz" resultMap="JytzzResult">
+        <include refid="selectJytzzVo"/>
+        <where>
+            <if test="configAgentId != null  and configAgentId != ''"> and configAgentId = #{configAgentId}</if>
+            <if test="sendBatchNo != null  and sendBatchNo != ''"> and sendBatchNo = #{sendBatchNo}</if>
+            <if test="sendNum != null  and sendNum != ''"> and sendNum = #{sendNum}</if>
+            <if test="sendTime != null  and sendTime != ''"> and sendTime = #{sendTime}</if>
+            <if test="transDate != null  and transDate != ''"> and transDate = #{transDate}</if>
+            <if test="sign != null  and sign != ''"> and sign = #{sign}</if>
+        </where>
+        order by id desc
+    </select>
+    
+    <select id="selectJytzzById" parameterType="Long" resultMap="JytzzResult">
+        <include refid="selectJytzzVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertJytzz" parameterType="Jytzz">
+        insert into jytzz
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="configAgentId != null">configAgentId,</if>
+            <if test="sendBatchNo != null">sendBatchNo,</if>
+            <if test="sendNum != null">sendNum,</if>
+            <if test="sendTime != null">sendTime,</if>
+            <if test="transDate != null">transDate,</if>
+            <if test="sign != null">sign,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="configAgentId != null">#{configAgentId},</if>
+            <if test="sendBatchNo != null">#{sendBatchNo},</if>
+            <if test="sendNum != null">#{sendNum},</if>
+            <if test="sendTime != null">#{sendTime},</if>
+            <if test="transDate != null">#{transDate},</if>
+            <if test="sign != null">#{sign},</if>
+         </trim>
+    </insert>
+
+    <update id="updateJytzz" parameterType="Jytzz">
+        update jytzz
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="configAgentId != null">configAgentId = #{configAgentId},</if>
+            <if test="sendBatchNo != null">sendBatchNo = #{sendBatchNo},</if>
+            <if test="sendNum != null">sendNum = #{sendNum},</if>
+            <if test="sendTime != null">sendTime = #{sendTime},</if>
+            <if test="transDate != null">transDate = #{transDate},</if>
+            <if test="sign != null">sign = #{sign},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteJytzzById" parameterType="Long">
+        delete from jytzz where id = #{id}
+    </delete>
+
+    <delete id="deleteJytzzByIds" parameterType="String">
+        delete from jytzz where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

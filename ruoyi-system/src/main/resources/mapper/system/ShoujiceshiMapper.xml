@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ShoujiceshiMapper">
+    
+    <resultMap type="Shoujiceshi" id="ShoujiceshiResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="shouji"    column="shouji"    />
+        <result property="sex"    column="sex"    />
+        <result property="xueli"    column="xueli"    />
+        <result property="dizhi"    column="dizhi"    />
+        <result property="bak"    column="bak"    />
+        <result property="nengli"    column="nengli"    />
+        <result property="chifan"    column="chifan"    />
+        <result property="bak1"    column="bak1"    />
+        <result property="bak2"    column="bak2"    />
+        <result property="bak3"    column="bak3"    />
+    </resultMap>
+
+    <sql id="selectShoujiceshiVo">
+        select id, name, shouji, sex, xueli, dizhi, bak, nengli, chifan, bak1, bak2, bak3 from shoujiceshi
+    </sql>
+
+    <select id="selectShoujiceshiList" parameterType="Shoujiceshi" resultMap="ShoujiceshiResult">
+        <include refid="selectShoujiceshiVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="shouji != null  and shouji != ''"> and shouji = #{shouji}</if>
+            <if test="sex != null  and sex != ''"> and sex = #{sex}</if>
+            <if test="xueli != null  and xueli != ''"> and xueli = #{xueli}</if>
+            <if test="dizhi != null  and dizhi != ''"> and dizhi = #{dizhi}</if>
+            <if test="bak != null  and bak != ''"> and bak = #{bak}</if>
+            <if test="nengli != null  and nengli != ''"> and nengli = #{nengli}</if>
+            <if test="chifan != null  and chifan != ''"> and chifan = #{chifan}</if>
+            <if test="bak1 != null  and bak1 != ''"> and bak1 = #{bak1}</if>
+            <if test="bak2 != null  and bak2 != ''"> and bak2 = #{bak2}</if>
+            <if test="bak3 != null  and bak3 != ''"> and bak3 = #{bak3}</if>
+        </where>
+    </select>
+    
+    <select id="selectShoujiceshiById" parameterType="Long" resultMap="ShoujiceshiResult">
+        <include refid="selectShoujiceshiVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertShoujiceshi" parameterType="Shoujiceshi" useGeneratedKeys="true" keyProperty="id">
+        insert into shoujiceshi
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="shouji != null">shouji,</if>
+            <if test="sex != null">sex,</if>
+            <if test="xueli != null">xueli,</if>
+            <if test="dizhi != null">dizhi,</if>
+            <if test="bak != null">bak,</if>
+            <if test="nengli != null">nengli,</if>
+            <if test="chifan != null">chifan,</if>
+            <if test="bak1 != null">bak1,</if>
+            <if test="bak2 != null">bak2,</if>
+            <if test="bak3 != null">bak3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="shouji != null">#{shouji},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="xueli != null">#{xueli},</if>
+            <if test="dizhi != null">#{dizhi},</if>
+            <if test="bak != null">#{bak},</if>
+            <if test="nengli != null">#{nengli},</if>
+            <if test="chifan != null">#{chifan},</if>
+            <if test="bak1 != null">#{bak1},</if>
+            <if test="bak2 != null">#{bak2},</if>
+            <if test="bak3 != null">#{bak3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateShoujiceshi" parameterType="Shoujiceshi">
+        update shoujiceshi
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="shouji != null">shouji = #{shouji},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="xueli != null">xueli = #{xueli},</if>
+            <if test="dizhi != null">dizhi = #{dizhi},</if>
+            <if test="bak != null">bak = #{bak},</if>
+            <if test="nengli != null">nengli = #{nengli},</if>
+            <if test="chifan != null">chifan = #{chifan},</if>
+            <if test="bak1 != null">bak1 = #{bak1},</if>
+            <if test="bak2 != null">bak2 = #{bak2},</if>
+            <if test="bak3 != null">bak3 = #{bak3},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteShoujiceshiById" parameterType="Long">
+        delete from shoujiceshi where id = #{id}
+    </delete>
+
+    <delete id="deleteShoujiceshiByIds" parameterType="String">
+        delete from shoujiceshi where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

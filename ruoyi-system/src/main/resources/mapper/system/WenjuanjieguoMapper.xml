@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.WenjuanjieguoMapper">
+    
+    <resultMap type="Wenjuanjieguo" id="WenjuanjieguoResult">
+        <result property="id"    column="id"    />
+        <result property="bianma"    column="bianma"    />
+        <result property="bak"    column="bak"    />
+        <result property="bak1"    column="bak1"    />
+        <result property="bak2"    column="bak2"    />
+        <result property="bak3"    column="bak3"    />
+        <result property="bak4"    column="bak4"    />
+        <result property="bak5"    column="bak5"    />
+        <result property="bak6"    column="bak6"    />
+    </resultMap>
+
+    <sql id="selectWenjuanjieguoVo">
+        select id, bianma, bak, bak1, bak2, bak3, bak4, bak5, bak6 from wenjuanjieguo
+    </sql>
+
+    <select id="selectWenjuanjieguoList" parameterType="Wenjuanjieguo" resultMap="WenjuanjieguoResult">
+        <include refid="selectWenjuanjieguoVo"/>
+        <where>  
+            <if test="bianma != null  and bianma != ''"> and bianma = #{bianma}</if>
+            <if test="bak != null  and bak != ''"> and bak = #{bak}</if>
+        </where>
+    </select>
+    
+    <select id="selectWenjuanjieguoById" parameterType="Long" resultMap="WenjuanjieguoResult">
+        <include refid="selectWenjuanjieguoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertWenjuanjieguo" parameterType="Wenjuanjieguo" useGeneratedKeys="true" keyProperty="id">
+        insert into wenjuanjieguo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bianma != null">bianma,</if>
+            <if test="bak != null">bak,</if>
+            <if test="bak1 != null">bak1,</if>
+            <if test="bak2 != null">bak2,</if>
+            <if test="bak3 != null">bak3,</if>
+            <if test="bak4 != null">bak4,</if>
+            <if test="bak5 != null">bak5,</if>
+            <if test="bak6 != null">bak6,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bianma != null">#{bianma},</if>
+            <if test="bak != null">#{bak},</if>
+            <if test="bak1 != null">#{bak1},</if>
+            <if test="bak2 != null">#{bak2},</if>
+            <if test="bak3 != null">#{bak3},</if>
+            <if test="bak4 != null">#{bak4},</if>
+            <if test="bak5 != null">#{bak5},</if>
+            <if test="bak6 != null">#{bak6},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWenjuanjieguo" parameterType="Wenjuanjieguo">
+        update wenjuanjieguo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bianma != null">bianma = #{bianma},</if>
+            <if test="bak != null">bak = #{bak},</if>
+            <if test="bak1 != null">bak1 = #{bak1},</if>
+            <if test="bak2 != null">bak2 = #{bak2},</if>
+            <if test="bak3 != null">bak3 = #{bak3},</if>
+            <if test="bak4 != null">bak4 = #{bak4},</if>
+            <if test="bak5 != null">bak5 = #{bak5},</if>
+            <if test="bak6 != null">bak6 = #{bak6},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWenjuanjieguoById" parameterType="Long">
+        delete from wenjuanjieguo where id = #{id}
+    </delete>
+
+    <delete id="deleteWenjuanjieguoByIds" parameterType="String">
+        delete from wenjuanjieguo where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

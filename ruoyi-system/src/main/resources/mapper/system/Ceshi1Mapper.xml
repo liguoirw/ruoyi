@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.Ceshi1Mapper">
+    
+    <resultMap type="Ceshi1" id="Ceshi1Result">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="wenjiandizhi"    column="wenjiandizhi"    />
+        <result property="tupiandizhi"    column="tupiandizhi"    />
+        <result property="bak"    column="bak"    />
+    </resultMap>
+
+    <sql id="selectCeshi1Vo">
+        select id, name, wenjiandizhi, tupiandizhi, bak from ceshi1
+    </sql>
+
+    <select id="selectCeshi1List" parameterType="Ceshi1" resultMap="Ceshi1Result">
+        <include refid="selectCeshi1Vo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="wenjiandizhi != null  and wenjiandizhi != ''"> and wenjiandizhi = #{wenjiandizhi}</if>
+            <if test="tupiandizhi != null  and tupiandizhi != ''"> and tupiandizhi = #{tupiandizhi}</if>
+            <if test="bak != null  and bak != ''"> and bak = #{bak}</if>
+        </where> order by id desc
+    </select>
+    
+    <select id="selectCeshi1ById" parameterType="Long" resultMap="Ceshi1Result">
+        <include refid="selectCeshi1Vo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCeshi1" parameterType="Ceshi1" useGeneratedKeys="true" keyProperty="id">
+        insert into ceshi1
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="wenjiandizhi != null">wenjiandizhi,</if>
+            <if test="tupiandizhi != null">tupiandizhi,</if>
+            <if test="bak != null">bak,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="wenjiandizhi != null">#{wenjiandizhi},</if>
+            <if test="tupiandizhi != null">#{tupiandizhi},</if>
+            <if test="bak != null">#{bak},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCeshi1" parameterType="Ceshi1">
+        update ceshi1
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="wenjiandizhi != null">wenjiandizhi = #{wenjiandizhi},</if>
+            <if test="tupiandizhi != null">tupiandizhi = #{tupiandizhi},</if>
+            <if test="bak != null">bak = #{bak},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCeshi1ById" parameterType="Long">
+        delete from ceshi1 where id = #{id}
+    </delete>
+
+    <delete id="deleteCeshi1ByIds" parameterType="String">
+        delete from ceshi1 where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

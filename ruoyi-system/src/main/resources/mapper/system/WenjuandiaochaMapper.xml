@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.WenjuandiaochaMapper">
+    
+    <resultMap type="Wenjuandiaocha" id="WenjuandiaochaResult">
+        <result property="id"    column="id"    />
+        <result property="shenfenzheng"    column="shenfenzheng"    />
+        <result property="age"    column="age"    />
+        <result property="nianshouru"    column="nianshouru"    />
+        <result property="cheliangxinxi"    column="cheliangxinxi"    />
+        <result property="zhiling"    column="zhiling"    />
+        <result property="wangdaishu"    column="wangdaishu"    />
+        <result property="shehuibaoxian"    column="shehuibaoxian"    />
+        <result property="shangyebaoxian"    column="shangyebaoxian"    />
+        <result property="hunyin"    column="hunyin"    />
+        <result property="zhufangxinxi"    column="zhufangxinxi"    />
+        <result property="bankayongtu"    column="bankayongtu"    />
+        <result property="zuidaedu"    column="zuidaedu"    />
+        <result property="zuixiaoedu"    column="zuixiaoedu"    />
+        <result property="kapianshuliang"    column="kapianshuliang"    />
+        <result property="youguoyuqi"    column="youguoyuqi"    />
+        <result property="banlifenqi"    column="banlifenqi"    />
+        <result property="yueneitie"    column="yueneitie"    />
+        <result property="jiaoyibishu"    column="jiaoyibishu"    />
+        <result property="kapianzongshengyuedu"    column="kapianzongshengyuedu"    />
+        <result property="yinhangbanlifenqi"    column="yinhangbanlifenqi"    />
+        <result property="selectid"    column="selectid"    />
+    </resultMap>
+
+    <sql id="selectWenjuandiaochaVo">
+        select id, shenfenzheng, age, nianshouru, cheliangxinxi, zhiling, wangdaishu, shehuibaoxian, shangyebaoxian, hunyin, zhufangxinxi, bankayongtu, zuidaedu, zuixiaoedu, kapianshuliang, youguoyuqi, banlifenqi, yueneitie, jiaoyibishu, kapianzongshengyuedu, yinhangbanlifenqi, selectid from wenjuandiaocha
+    </sql>
+
+    <select id="selectWenjuandiaochaList" parameterType="Wenjuandiaocha" resultMap="WenjuandiaochaResult">
+        <include refid="selectWenjuandiaochaVo"/>
+        <where>  
+            <if test="shenfenzheng != null  and shenfenzheng != ''"> and shenfenzheng = #{shenfenzheng}</if>
+            <if test="age != null  and age != ''"> and age = #{age}</if>
+            <if test="nianshouru != null  and nianshouru != ''"> and nianshouru = #{nianshouru}</if>
+            <if test="cheliangxinxi != null  and cheliangxinxi != ''"> and cheliangxinxi = #{cheliangxinxi}</if>
+            <if test="zhiling != null  and zhiling != ''"> and zhiling = #{zhiling}</if>
+            <if test="wangdaishu != null  and wangdaishu != ''"> and wangdaishu = #{wangdaishu}</if>
+            <if test="shehuibaoxian != null  and shehuibaoxian != ''"> and shehuibaoxian = #{shehuibaoxian}</if>
+            <if test="shangyebaoxian != null  and shangyebaoxian != ''"> and shangyebaoxian = #{shangyebaoxian}</if>
+            <if test="hunyin != null  and hunyin != ''"> and hunyin = #{hunyin}</if>
+            <if test="zhufangxinxi != null  and zhufangxinxi != ''"> and zhufangxinxi = #{zhufangxinxi}</if>
+            <if test="bankayongtu != null  and bankayongtu != ''"> and bankayongtu = #{bankayongtu}</if>
+            <if test="zuidaedu != null  and zuidaedu != ''"> and zuidaedu = #{zuidaedu}</if>
+            <if test="zuixiaoedu != null  and zuixiaoedu != ''"> and zuixiaoedu = #{zuixiaoedu}</if>
+            <if test="kapianshuliang != null  and kapianshuliang != ''"> and kapianshuliang = #{kapianshuliang}</if>
+            <if test="youguoyuqi != null  and youguoyuqi != ''"> and youguoyuqi = #{youguoyuqi}</if>
+            <if test="banlifenqi != null  and banlifenqi != ''"> and banlifenqi = #{banlifenqi}</if>
+            <if test="yueneitie != null  and yueneitie != ''"> and yueneitie = #{yueneitie}</if>
+            <if test="jiaoyibishu != null  and jiaoyibishu != ''"> and jiaoyibishu = #{jiaoyibishu}</if>
+            <if test="kapianzongshengyuedu != null  and kapianzongshengyuedu != ''"> and kapianzongshengyuedu = #{kapianzongshengyuedu}</if>
+            <if test="yinhangbanlifenqi != null  and yinhangbanlifenqi != ''"> and yinhangbanlifenqi = #{yinhangbanlifenqi}</if>
+            <if test="selectid != null  and selectid != ''"> and selectid = #{selectid}</if>
+        </where>
+    </select>
+    
+    <select id="selectWenjuandiaochaById" parameterType="Long" resultMap="WenjuandiaochaResult">
+        <include refid="selectWenjuandiaochaVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertWenjuandiaocha" parameterType="Wenjuandiaocha" useGeneratedKeys="true" keyProperty="id">
+        insert into wenjuandiaocha
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shenfenzheng != null">shenfenzheng,</if>
+            <if test="age != null">age,</if>
+            <if test="nianshouru != null">nianshouru,</if>
+            <if test="cheliangxinxi != null">cheliangxinxi,</if>
+            <if test="zhiling != null">zhiling,</if>
+            <if test="wangdaishu != null">wangdaishu,</if>
+            <if test="shehuibaoxian != null">shehuibaoxian,</if>
+            <if test="shangyebaoxian != null">shangyebaoxian,</if>
+            <if test="hunyin != null">hunyin,</if>
+            <if test="zhufangxinxi != null">zhufangxinxi,</if>
+            <if test="bankayongtu != null">bankayongtu,</if>
+            <if test="zuidaedu != null">zuidaedu,</if>
+            <if test="zuixiaoedu != null">zuixiaoedu,</if>
+            <if test="kapianshuliang != null">kapianshuliang,</if>
+            <if test="youguoyuqi != null">youguoyuqi,</if>
+            <if test="banlifenqi != null">banlifenqi,</if>
+            <if test="yueneitie != null">yueneitie,</if>
+            <if test="jiaoyibishu != null">jiaoyibishu,</if>
+            <if test="kapianzongshengyuedu != null">kapianzongshengyuedu,</if>
+            <if test="yinhangbanlifenqi != null">yinhangbanlifenqi,</if>
+            <if test="selectid != null">selectid,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shenfenzheng != null">#{shenfenzheng},</if>
+            <if test="age != null">#{age},</if>
+            <if test="nianshouru != null">#{nianshouru},</if>
+            <if test="cheliangxinxi != null">#{cheliangxinxi},</if>
+            <if test="zhiling != null">#{zhiling},</if>
+            <if test="wangdaishu != null">#{wangdaishu},</if>
+            <if test="shehuibaoxian != null">#{shehuibaoxian},</if>
+            <if test="shangyebaoxian != null">#{shangyebaoxian},</if>
+            <if test="hunyin != null">#{hunyin},</if>
+            <if test="zhufangxinxi != null">#{zhufangxinxi},</if>
+            <if test="bankayongtu != null">#{bankayongtu},</if>
+            <if test="zuidaedu != null">#{zuidaedu},</if>
+            <if test="zuixiaoedu != null">#{zuixiaoedu},</if>
+            <if test="kapianshuliang != null">#{kapianshuliang},</if>
+            <if test="youguoyuqi != null">#{youguoyuqi},</if>
+            <if test="banlifenqi != null">#{banlifenqi},</if>
+            <if test="yueneitie != null">#{yueneitie},</if>
+            <if test="jiaoyibishu != null">#{jiaoyibishu},</if>
+            <if test="kapianzongshengyuedu != null">#{kapianzongshengyuedu},</if>
+            <if test="yinhangbanlifenqi != null">#{yinhangbanlifenqi},</if>
+            <if test="selectid != null">#{selectid},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWenjuandiaocha" parameterType="Wenjuandiaocha">
+        update wenjuandiaocha
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="shenfenzheng != null">shenfenzheng = #{shenfenzheng},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="nianshouru != null">nianshouru = #{nianshouru},</if>
+            <if test="cheliangxinxi != null">cheliangxinxi = #{cheliangxinxi},</if>
+            <if test="zhiling != null">zhiling = #{zhiling},</if>
+            <if test="wangdaishu != null">wangdaishu = #{wangdaishu},</if>
+            <if test="shehuibaoxian != null">shehuibaoxian = #{shehuibaoxian},</if>
+            <if test="shangyebaoxian != null">shangyebaoxian = #{shangyebaoxian},</if>
+            <if test="hunyin != null">hunyin = #{hunyin},</if>
+            <if test="zhufangxinxi != null">zhufangxinxi = #{zhufangxinxi},</if>
+            <if test="bankayongtu != null">bankayongtu = #{bankayongtu},</if>
+            <if test="zuidaedu != null">zuidaedu = #{zuidaedu},</if>
+            <if test="zuixiaoedu != null">zuixiaoedu = #{zuixiaoedu},</if>
+            <if test="kapianshuliang != null">kapianshuliang = #{kapianshuliang},</if>
+            <if test="youguoyuqi != null">youguoyuqi = #{youguoyuqi},</if>
+            <if test="banlifenqi != null">banlifenqi = #{banlifenqi},</if>
+            <if test="yueneitie != null">yueneitie = #{yueneitie},</if>
+            <if test="jiaoyibishu != null">jiaoyibishu = #{jiaoyibishu},</if>
+            <if test="kapianzongshengyuedu != null">kapianzongshengyuedu = #{kapianzongshengyuedu},</if>
+            <if test="yinhangbanlifenqi != null">yinhangbanlifenqi = #{yinhangbanlifenqi},</if>
+            <if test="selectid != null">selectid = #{selectid},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWenjuandiaochaById" parameterType="Long">
+        delete from wenjuandiaocha where id = #{id}
+    </delete>
+
+    <delete id="deleteWenjuandiaochaByIds" parameterType="String">
+        delete from wenjuandiaocha where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

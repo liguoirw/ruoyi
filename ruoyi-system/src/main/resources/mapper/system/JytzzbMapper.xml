@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.JytzzbMapper">
+    
+    <resultMap type="Jytzzb" id="JytzzbResult">
+        <result property="id"    column="id"    />
+        <result property="fid"    column="fid"    />
+        <result property="sysRespDesc"    column="sysRespDesc"    />
+        <result property="agentId"    column="agentId"    />
+        <result property="amount"    column="amount"    />
+        <result property="batchNo"    column="batchNo"    />
+        <result property="authCode"    column="authCode"    />
+        <result property="sysRespCode"    column="sysRespCode"    />
+        <result property="traceNo"    column="traceNo"    />
+        <result property="settleAmount"    column="settleAmount"    />
+        <result property="cardType"    column="cardType"    />
+        <result property="settleDate"    column="settleDate"    />
+        <result property="mobileNo"    column="mobileNo"    />
+        <result property="feeType"    column="feeType"    />
+        <result property="cardNo"    column="cardNo"    />
+        <result property="termModel"    column="termModel"    />
+        <result property="merchLevel"    column="merchLevel"    />
+        <result property="merchantName"    column="merchantName"    />
+        <result property="rrn"    column="rrn"    />
+        <result property="sysTraceNo"    column="sysTraceNo"    />
+        <result property="termId"    column="termId"    />
+        <result property="termSn"    column="termSn"    />
+        <result property="tranTime"    column="tranTime"    />
+        <result property="merchantId"    column="merchantId"    />
+        <result property="inputMode"    column="inputMode"    />
+        <result property="tranCode"    column="tranCode"    />
+        <result property="channelTraceNo"    column="channelTraceNo"    />
+        <result property="channelSerialNo"    column="channelSerialNo"    />
+        <result property="channelRrn"    column="channelRrn"    />
+        <result property="orderId"    column="orderId"    />
+        <result property="bankName"    column="bankName"    />
+        <result property="extend"    column="extend"    />
+    </resultMap>
+
+    <sql id="selectJytzzbVo">
+        select id, fid, sysRespDesc, agentId, amount, batchNo, authCode, sysRespCode, traceNo, settleAmount, cardType, settleDate, mobileNo, feeType, cardNo, termModel, merchLevel, merchantName, rrn, sysTraceNo, termId, termSn, tranTime, merchantId, inputMode, tranCode, channelTraceNo, channelSerialNo, channelRrn, orderId, bankName, extend from jytzzb
+    </sql>
+
+    <select id="selectJytzzbList" parameterType="Jytzzb" resultMap="JytzzbResult">
+        <include refid="selectJytzzbVo"/>
+        <where>  
+            <if test="fid != null "> and fid = #{fid}</if>
+            <if test="sysRespDesc != null  and sysRespDesc != ''"> and sysRespDesc = #{sysRespDesc}</if>
+            <if test="agentId != null  and agentId != ''"> and agentId = #{agentId}</if>
+            <if test="amount != null  and amount != ''"> and amount = #{amount}</if>
+            <if test="batchNo != null  and batchNo != ''"> and batchNo = #{batchNo}</if>
+            <if test="authCode != null  and authCode != ''"> and authCode = #{authCode}</if>
+            <if test="sysRespCode != null  and sysRespCode != ''"> and sysRespCode = #{sysRespCode}</if>
+            <if test="traceNo != null  and traceNo != ''"> and traceNo = #{traceNo}</if>
+            <if test="settleAmount != null  and settleAmount != ''"> and settleAmount = #{settleAmount}</if>
+            <if test="cardType != null  and cardType != ''"> and cardType = #{cardType}</if>
+            <if test="settleDate != null  and settleDate != ''"> and settleDate = #{settleDate}</if>
+            <if test="mobileNo != null  and mobileNo != ''"> and mobileNo = #{mobileNo}</if>
+            <if test="feeType != null  and feeType != ''"> and feeType = #{feeType}</if>
+            <if test="cardNo != null  and cardNo != ''"> and cardNo = #{cardNo}</if>
+            <if test="termModel != null  and termModel != ''"> and termModel = #{termModel}</if>
+            <if test="merchLevel != null  and merchLevel != ''"> and merchLevel = #{merchLevel}</if>
+            <if test="merchantName != null  and merchantName != ''"> and merchantName like concat('%', #{merchantName}, '%')</if>
+            <if test="rrn != null  and rrn != ''"> and rrn = #{rrn}</if>
+            <if test="sysTraceNo != null  and sysTraceNo != ''"> and sysTraceNo = #{sysTraceNo}</if>
+            <if test="termId != null  and termId != ''"> and termId = #{termId}</if>
+            <if test="termSn != null  and termSn != ''"> and termSn = #{termSn}</if>
+            <if test="tranTime != null  and tranTime != ''"> and tranTime = #{tranTime}</if>
+            <if test="merchantId != null  and merchantId != ''"> and merchantId = #{merchantId}</if>
+            <if test="inputMode != null  and inputMode != ''"> and inputMode = #{inputMode}</if>
+            <if test="tranCode != null  and tranCode != ''"> and tranCode = #{tranCode}</if>
+            <if test="channelTraceNo != null  and channelTraceNo != ''"> and channelTraceNo = #{channelTraceNo}</if>
+            <if test="channelSerialNo != null  and channelSerialNo != ''"> and channelSerialNo = #{channelSerialNo}</if>
+            <if test="channelRrn != null  and channelRrn != ''"> and channelRrn = #{channelRrn}</if>
+            <if test="orderId != null  and orderId != ''"> and orderId = #{orderId}</if>
+            <if test="bankName != null  and bankName != ''"> and bankName like concat('%', #{bankName}, '%')</if>
+            <if test="extend != null  and extend != ''"> and extend = #{extend}</if>
+        </where>
+    </select>
+    
+    <select id="selectJytzzbById" parameterType="Long" resultMap="JytzzbResult">
+        <include refid="selectJytzzbVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertJytzzb" parameterType="Jytzzb">
+        insert into jytzzb
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="fid != null">fid,</if>
+            <if test="sysRespDesc != null">sysRespDesc,</if>
+            <if test="agentId != null">agentId,</if>
+            <if test="amount != null">amount,</if>
+            <if test="batchNo != null">batchNo,</if>
+            <if test="authCode != null">authCode,</if>
+            <if test="sysRespCode != null">sysRespCode,</if>
+            <if test="traceNo != null">traceNo,</if>
+            <if test="settleAmount != null">settleAmount,</if>
+            <if test="cardType != null">cardType,</if>
+            <if test="settleDate != null">settleDate,</if>
+            <if test="mobileNo != null">mobileNo,</if>
+            <if test="feeType != null">feeType,</if>
+            <if test="cardNo != null">cardNo,</if>
+            <if test="termModel != null">termModel,</if>
+            <if test="merchLevel != null">merchLevel,</if>
+            <if test="merchantName != null">merchantName,</if>
+            <if test="rrn != null">rrn,</if>
+            <if test="sysTraceNo != null">sysTraceNo,</if>
+            <if test="termId != null">termId,</if>
+            <if test="termSn != null">termSn,</if>
+            <if test="tranTime != null">tranTime,</if>
+            <if test="merchantId != null">merchantId,</if>
+            <if test="inputMode != null">inputMode,</if>
+            <if test="tranCode != null">tranCode,</if>
+            <if test="channelTraceNo != null">channelTraceNo,</if>
+            <if test="channelSerialNo != null">channelSerialNo,</if>
+            <if test="channelRrn != null">channelRrn,</if>
+            <if test="orderId != null">orderId,</if>
+            <if test="bankName != null">bankName,</if>
+            <if test="extend != null">extend,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="fid != null">#{fid},</if>
+            <if test="sysRespDesc != null">#{sysRespDesc},</if>
+            <if test="agentId != null">#{agentId},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="batchNo != null">#{batchNo},</if>
+            <if test="authCode != null">#{authCode},</if>
+            <if test="sysRespCode != null">#{sysRespCode},</if>
+            <if test="traceNo != null">#{traceNo},</if>
+            <if test="settleAmount != null">#{settleAmount},</if>
+            <if test="cardType != null">#{cardType},</if>
+            <if test="settleDate != null">#{settleDate},</if>
+            <if test="mobileNo != null">#{mobileNo},</if>
+            <if test="feeType != null">#{feeType},</if>
+            <if test="cardNo != null">#{cardNo},</if>
+            <if test="termModel != null">#{termModel},</if>
+            <if test="merchLevel != null">#{merchLevel},</if>
+            <if test="merchantName != null">#{merchantName},</if>
+            <if test="rrn != null">#{rrn},</if>
+            <if test="sysTraceNo != null">#{sysTraceNo},</if>
+            <if test="termId != null">#{termId},</if>
+            <if test="termSn != null">#{termSn},</if>
+            <if test="tranTime != null">#{tranTime},</if>
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="inputMode != null">#{inputMode},</if>
+            <if test="tranCode != null">#{tranCode},</if>
+            <if test="channelTraceNo != null">#{channelTraceNo},</if>
+            <if test="channelSerialNo != null">#{channelSerialNo},</if>
+            <if test="channelRrn != null">#{channelRrn},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="bankName != null">#{bankName},</if>
+            <if test="extend != null">#{extend},</if>
+         </trim>
+    </insert>
+
+    <update id="updateJytzzb" parameterType="Jytzzb">
+        update jytzzb
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fid != null">fid = #{fid},</if>
+            <if test="sysRespDesc != null">sysRespDesc = #{sysRespDesc},</if>
+            <if test="agentId != null">agentId = #{agentId},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="batchNo != null">batchNo = #{batchNo},</if>
+            <if test="authCode != null">authCode = #{authCode},</if>
+            <if test="sysRespCode != null">sysRespCode = #{sysRespCode},</if>
+            <if test="traceNo != null">traceNo = #{traceNo},</if>
+            <if test="settleAmount != null">settleAmount = #{settleAmount},</if>
+            <if test="cardType != null">cardType = #{cardType},</if>
+            <if test="settleDate != null">settleDate = #{settleDate},</if>
+            <if test="mobileNo != null">mobileNo = #{mobileNo},</if>
+            <if test="feeType != null">feeType = #{feeType},</if>
+            <if test="cardNo != null">cardNo = #{cardNo},</if>
+            <if test="termModel != null">termModel = #{termModel},</if>
+            <if test="merchLevel != null">merchLevel = #{merchLevel},</if>
+            <if test="merchantName != null">merchantName = #{merchantName},</if>
+            <if test="rrn != null">rrn = #{rrn},</if>
+            <if test="sysTraceNo != null">sysTraceNo = #{sysTraceNo},</if>
+            <if test="termId != null">termId = #{termId},</if>
+            <if test="termSn != null">termSn = #{termSn},</if>
+            <if test="tranTime != null">tranTime = #{tranTime},</if>
+            <if test="merchantId != null">merchantId = #{merchantId},</if>
+            <if test="inputMode != null">inputMode = #{inputMode},</if>
+            <if test="tranCode != null">tranCode = #{tranCode},</if>
+            <if test="channelTraceNo != null">channelTraceNo = #{channelTraceNo},</if>
+            <if test="channelSerialNo != null">channelSerialNo = #{channelSerialNo},</if>
+            <if test="channelRrn != null">channelRrn = #{channelRrn},</if>
+            <if test="orderId != null">orderId = #{orderId},</if>
+            <if test="bankName != null">bankName = #{bankName},</if>
+            <if test="extend != null">extend = #{extend},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteJytzzbById" parameterType="Long">
+        delete from jytzzb where id = #{id}
+    </delete>
+
+    <delete id="deleteJytzzbByIds" parameterType="String">
+        delete from jytzzb where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

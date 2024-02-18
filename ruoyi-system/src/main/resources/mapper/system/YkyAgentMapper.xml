@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.YkyAgentMapper">
+    
+    <resultMap type="YkyAgent" id="YkyAgentResult">
+        <result property="id"    column="id"    />
+        <result property="sort"    column="sort"    />
+        <result property="headPic"    column="headPic"    />
+        <result property="appName"    column="appName"    />
+        <result property="companyLogo"    column="companyLogo"    />
+        <result property="telePhone"    column="telePhone"    />
+        <result property="payAccountBalance"    column="payAccountBalance"    />
+        <result property="materialBalance"    column="materialBalance"    />
+        <result property="idNo"    column="idNo"    />
+        <result property="bankName"    column="bankName"    />
+        <result property="cusName"    column="cusName"    />
+        <result property="bankNo"    column="bankNo"    />
+        <result property="promotionNo"    column="promotionNo"    />
+        <result property="downloadAddress"    column="downloadAddress"    />
+        <result property="belongAgentNo"    column="belongAgentNo"    />
+        <result property="companyName"    column="companyName"    />
+        <result property="status"    column="status"    />
+        <result property="agentStatus"    column="agentStatus"    />
+        <result property="agentName"    column="agentName"    />
+        <result property="creatTime"    column="creatTime"    />
+        <result property="superiorNo"    column="superiorNo"    />
+        <result property="superiorName"    column="superiorName"    />
+        <result property="routeNo"    column="routeNo"    />
+        <result property="routeName"    column="routeName"    />
+        <result property="bake5"    column="bake5"    />
+    </resultMap>
+
+    <sql id="selectYkyAgentVo">
+        select id, sort, headPic, appName, companyLogo, telePhone, payAccountBalance, materialBalance, idNo, bankName, cusName, bankNo, promotionNo, downloadAddress, belongAgentNo, companyName, status, agentStatus, agentName, creatTime, superiorNo, superiorName, routeNo, routeName, bake5 from yky_agent
+    </sql>
+
+    <select id="selectYkyAgentList" parameterType="YkyAgent" resultMap="YkyAgentResult">
+        <include refid="selectYkyAgentVo"/>
+        <where>  
+            <if test="sort != null  and sort != ''"> and sort = #{sort}</if>
+            <if test="headPic != null  and headPic != ''"> and headPic = #{headPic}</if>
+            <if test="appName != null  and appName != ''"> and appName like concat('%', #{appName}, '%')</if>
+            <if test="companyLogo != null  and companyLogo != ''"> and companyLogo = #{companyLogo}</if>
+            <if test="telePhone != null  and telePhone != ''"> and telePhone = #{telePhone}</if>
+            <if test="payAccountBalance != null  and payAccountBalance != ''"> and payAccountBalance = #{payAccountBalance}</if>
+            <if test="materialBalance != null  and materialBalance != ''"> and materialBalance = #{materialBalance}</if>
+            <if test="idNo != null  and idNo != ''"> and idNo = #{idNo}</if>
+            <if test="bankName != null  and bankName != ''"> and bankName like concat('%', #{bankName}, '%')</if>
+            <if test="cusName != null  and cusName != ''"> and cusName like concat('%', #{cusName}, '%')</if>
+            <if test="bankNo != null  and bankNo != ''"> and bankNo = #{bankNo}</if>
+            <if test="promotionNo != null  and promotionNo != ''"> and promotionNo = #{promotionNo}</if>
+            <if test="downloadAddress != null  and downloadAddress != ''"> and downloadAddress = #{downloadAddress}</if>
+            <if test="belongAgentNo != null  and belongAgentNo != ''"> and belongAgentNo = #{belongAgentNo}</if>
+            <if test="companyName != null  and companyName != ''"> and companyName like concat('%', #{companyName}, '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="agentStatus != null  and agentStatus != ''"> and agentStatus = #{agentStatus}</if>
+            <if test="agentName != null  and agentName != ''"> and agentName like concat('%', #{agentName}, '%')</if>
+            <if test="creatTime != null "> and creatTime = #{creatTime}</if>
+            <if test="superiorNo != null  and superiorNo != ''"> and superiorNo = #{superiorNo}</if>
+            <if test="superiorName != null  and superiorName != ''"> and superiorName like concat('%', #{superiorName}, '%')</if>
+            <if test="routeNo != null  and routeNo != ''"> and routeNo = #{routeNo}</if>
+            <if test="routeName != null  and routeName != ''"> and routeName like concat('%', #{routeName}, '%')</if>
+            <if test="bake5 != null  and bake5 != ''"> and bake5 = #{bake5}</if>
+        </where>
+    </select>
+    
+    <select id="selectYkyAgentById" parameterType="Long" resultMap="YkyAgentResult">
+        <include refid="selectYkyAgentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertYkyAgent" parameterType="YkyAgent">
+        insert into yky_agent
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="sort != null">sort,</if>
+            <if test="headPic != null">headPic,</if>
+            <if test="appName != null">appName,</if>
+            <if test="companyLogo != null">companyLogo,</if>
+            <if test="telePhone != null">telePhone,</if>
+            <if test="payAccountBalance != null">payAccountBalance,</if>
+            <if test="materialBalance != null">materialBalance,</if>
+            <if test="idNo != null">idNo,</if>
+            <if test="bankName != null">bankName,</if>
+            <if test="cusName != null">cusName,</if>
+            <if test="bankNo != null">bankNo,</if>
+            <if test="promotionNo != null">promotionNo,</if>
+            <if test="downloadAddress != null">downloadAddress,</if>
+            <if test="belongAgentNo != null">belongAgentNo,</if>
+            <if test="companyName != null">companyName,</if>
+            <if test="status != null">status,</if>
+            <if test="agentStatus != null">agentStatus,</if>
+            <if test="agentName != null">agentName,</if>
+            <if test="creatTime != null">creatTime,</if>
+            <if test="superiorNo != null">superiorNo,</if>
+            <if test="superiorName != null">superiorName,</if>
+            <if test="routeNo != null">routeNo,</if>
+            <if test="routeName != null">routeName,</if>
+            <if test="bake5 != null">bake5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="headPic != null">#{headPic},</if>
+            <if test="appName != null">#{appName},</if>
+            <if test="companyLogo != null">#{companyLogo},</if>
+            <if test="telePhone != null">#{telePhone},</if>
+            <if test="payAccountBalance != null">#{payAccountBalance},</if>
+            <if test="materialBalance != null">#{materialBalance},</if>
+            <if test="idNo != null">#{idNo},</if>
+            <if test="bankName != null">#{bankName},</if>
+            <if test="cusName != null">#{cusName},</if>
+            <if test="bankNo != null">#{bankNo},</if>
+            <if test="promotionNo != null">#{promotionNo},</if>
+            <if test="downloadAddress != null">#{downloadAddress},</if>
+            <if test="belongAgentNo != null">#{belongAgentNo},</if>
+            <if test="companyName != null">#{companyName},</if>
+            <if test="status != null">#{status},</if>
+            <if test="agentStatus != null">#{agentStatus},</if>
+            <if test="agentName != null">#{agentName},</if>
+            <if test="creatTime != null">#{creatTime},</if>
+            <if test="superiorNo != null">#{superiorNo},</if>
+            <if test="superiorName != null">#{superiorName},</if>
+            <if test="routeNo != null">#{routeNo},</if>
+            <if test="routeName != null">#{routeName},</if>
+            <if test="bake5 != null">#{bake5},</if>
+         </trim>
+    </insert>
+
+    <update id="updateYkyAgent" parameterType="YkyAgent">
+        update yky_agent
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="headPic != null">headPic = #{headPic},</if>
+            <if test="appName != null">appName = #{appName},</if>
+            <if test="companyLogo != null">companyLogo = #{companyLogo},</if>
+            <if test="telePhone != null">telePhone = #{telePhone},</if>
+            <if test="payAccountBalance != null">payAccountBalance = #{payAccountBalance},</if>
+            <if test="materialBalance != null">materialBalance = #{materialBalance},</if>
+            <if test="idNo != null">idNo = #{idNo},</if>
+            <if test="bankName != null">bankName = #{bankName},</if>
+            <if test="cusName != null">cusName = #{cusName},</if>
+            <if test="bankNo != null">bankNo = #{bankNo},</if>
+            <if test="promotionNo != null">promotionNo = #{promotionNo},</if>
+            <if test="downloadAddress != null">downloadAddress = #{downloadAddress},</if>
+            <if test="belongAgentNo != null">belongAgentNo = #{belongAgentNo},</if>
+            <if test="companyName != null">companyName = #{companyName},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="agentStatus != null">agentStatus = #{agentStatus},</if>
+            <if test="agentName != null">agentName = #{agentName},</if>
+            <if test="creatTime != null">creatTime = #{creatTime},</if>
+            <if test="superiorNo != null">superiorNo = #{superiorNo},</if>
+            <if test="superiorName != null">superiorName = #{superiorName},</if>
+            <if test="routeNo != null">routeNo = #{routeNo},</if>
+            <if test="routeName != null">routeName = #{routeName},</if>
+            <if test="bake5 != null">bake5 = #{bake5},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteYkyAgentById" parameterType="Long">
+        delete from yky_agent where id = #{id}
+    </delete>
+
+    <delete id="deleteYkyAgentByIds" parameterType="String">
+        delete from yky_agent where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectAgentByProNo" parameterType="YkyAgent">
+        select id,companyName,promotionNo,agentStatus,routeNo,routeName from yky_agent
+        where promotionNo = #{promotionNo}
+    </select>
+
+</mapper>

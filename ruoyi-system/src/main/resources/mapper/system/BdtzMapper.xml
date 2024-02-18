@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BdtzMapper">
+    
+    <resultMap type="Bdtz" id="BdtzResult">
+        <result property="id"    column="id"    />
+        <result property="termId"    column="termId"    />
+        <result property="termSn"    column="termSn"    />
+        <result property="agentId"    column="agentId"    />
+        <result property="merchantId"    column="merchantId"    />
+        <result property="termModel"    column="termModel"    />
+        <result property="version"    column="version"    />
+    </resultMap>
+
+    <sql id="selectBdtzVo">
+        select id, termId, termSn, agentId, merchantId, termModel, version from bdtz
+    </sql>
+
+    <select id="selectBdtzList" parameterType="Bdtz" resultMap="BdtzResult">
+        <include refid="selectBdtzVo"/>
+        <where>  
+            <if test="termId != null  and termId != ''"> and termId = #{termId}</if>
+            <if test="termSn != null  and termSn != ''"> and termSn = #{termSn}</if>
+            <if test="agentId != null  and agentId != ''"> and agentId = #{agentId}</if>
+            <if test="merchantId != null  and merchantId != ''"> and merchantId = #{merchantId}</if>
+            <if test="termModel != null  and termModel != ''"> and termModel = #{termModel}</if>
+            <if test="version != null  and version != ''"> and version = #{version}</if>
+        </where>
+    </select>
+    
+    <select id="selectBdtzById" parameterType="Long" resultMap="BdtzResult">
+        <include refid="selectBdtzVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBdtz" parameterType="Bdtz" useGeneratedKeys="true" keyProperty="id">
+        insert into bdtz
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="termId != null">termId,</if>
+            <if test="termSn != null">termSn,</if>
+            <if test="agentId != null">agentId,</if>
+            <if test="merchantId != null">merchantId,</if>
+            <if test="termModel != null">termModel,</if>
+            <if test="version != null">version,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="termId != null">#{termId},</if>
+            <if test="termSn != null">#{termSn},</if>
+            <if test="agentId != null">#{agentId},</if>
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="termModel != null">#{termModel},</if>
+            <if test="version != null">#{version},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBdtz" parameterType="Bdtz">
+        update bdtz
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="termId != null">termId = #{termId},</if>
+            <if test="termSn != null">termSn = #{termSn},</if>
+            <if test="agentId != null">agentId = #{agentId},</if>
+            <if test="merchantId != null">merchantId = #{merchantId},</if>
+            <if test="termModel != null">termModel = #{termModel},</if>
+            <if test="version != null">version = #{version},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBdtzById" parameterType="Long">
+        delete from bdtz where id = #{id}
+    </delete>
+
+    <delete id="deleteBdtzByIds" parameterType="String">
+        delete from bdtz where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
