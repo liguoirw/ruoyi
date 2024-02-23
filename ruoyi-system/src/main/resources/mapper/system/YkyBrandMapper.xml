@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.YkyBrandMapper">
+    
+    <resultMap type="YkyBrand" id="YkyBrandResult">
+        <result property="brandId"    column="brandId"    />
+        <result property="sort"    column="sort"    />
+        <result property="manufacName"    column="manufacName"    />
+        <result property="brandName"    column="brandName"    />
+        <result property="model"    column="model"    />
+        <result property="servCharMax"    column="servCharMax"    />
+        <result property="machinePictue"    column="machinePictue"    />
+        <result property="bake1"    column="bake1"    />
+        <result property="bake2"    column="bake2"    />
+    </resultMap>
+
+    <sql id="selectYkyBrandVo">
+        select brandId, sort, manufacName, brandName, model, servCharMax, machinePictue, bake1, bake2 from yky_brand
+    </sql>
+
+    <select id="selectYkyBrandList" parameterType="YkyBrand" resultMap="YkyBrandResult">
+        <include refid="selectYkyBrandVo"/>
+        <where>  
+            <if test="sort != null "> and sort = #{sort}</if>
+            <if test="manufacName != null  and manufacName != ''"> and manufacName like concat('%', #{manufacName}, '%')</if>
+            <if test="brandName != null  and brandName != ''"> and brandName like concat('%', #{brandName}, '%')</if>
+            <if test="model != null  and model != ''"> and model = #{model}</if>
+            <if test="servCharMax != null  and servCharMax != ''"> and servCharMax = #{servCharMax}</if>
+            <if test="machinePictue != null  and machinePictue != ''"> and machinePictue = #{machinePictue}</if>
+            <if test="bake1 != null  and bake1 != ''"> and bake1 = #{bake1}</if>
+            <if test="bake2 != null  and bake2 != ''"> and bake2 = #{bake2}</if>
+        </where>
+    </select>
+    
+    <select id="selectYkyBrandByBrandId" parameterType="Long" resultMap="YkyBrandResult">
+        <include refid="selectYkyBrandVo"/>
+        where brandId = #{brandId}
+    </select>
+        
+    <insert id="insertYkyBrand" parameterType="YkyBrand" useGeneratedKeys="true" keyProperty="brandId">
+        insert into yky_brand
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sort != null">sort,</if>
+            <if test="manufacName != null">manufacName,</if>
+            <if test="brandName != null">brandName,</if>
+            <if test="model != null">model,</if>
+            <if test="servCharMax != null">servCharMax,</if>
+            <if test="machinePictue != null">machinePictue,</if>
+            <if test="bake1 != null">bake1,</if>
+            <if test="bake2 != null">bake2,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sort != null">#{sort},</if>
+            <if test="manufacName != null">#{manufacName},</if>
+            <if test="brandName != null">#{brandName},</if>
+            <if test="model != null">#{model},</if>
+            <if test="servCharMax != null">#{servCharMax},</if>
+            <if test="machinePictue != null">#{machinePictue},</if>
+            <if test="bake1 != null">#{bake1},</if>
+            <if test="bake2 != null">#{bake2},</if>
+         </trim>
+    </insert>
+
+    <update id="updateYkyBrand" parameterType="YkyBrand">
+        update yky_brand
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="manufacName != null">manufacName = #{manufacName},</if>
+            <if test="brandName != null">brandName = #{brandName},</if>
+            <if test="model != null">model = #{model},</if>
+            <if test="servCharMax != null">servCharMax = #{servCharMax},</if>
+            <if test="machinePictue != null">machinePictue = #{machinePictue},</if>
+            <if test="bake1 != null">bake1 = #{bake1},</if>
+            <if test="bake2 != null">bake2 = #{bake2},</if>
+        </trim>
+        where brandId = #{brandId}
+    </update>
+
+    <delete id="deleteYkyBrandByBrandId" parameterType="Long">
+        delete from yky_brand where brandId = #{brandId}
+    </delete>
+
+    <delete id="deleteYkyBrandByBrandIds" parameterType="String">
+        delete from yky_brand where brandId in 
+        <foreach item="brandId" collection="array" open="(" separator="," close=")">
+            #{brandId}
+        </foreach>
+    </delete>
+</mapper>

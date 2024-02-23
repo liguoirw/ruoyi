@@ -1,13 +1,37 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="名" prop="name">
+      <el-form-item label="SN码" prop="sn">
         <el-input
-          v-model="queryParams.name"
-          placeholder="请输入名"
+          v-model="queryParams.sn"
+          placeholder="请输入SN码"
           clearable
           @keyup.enter.native="handleQuery"
         />
+      </el-form-item>
+      <el-form-item label="调拨前" prop="beforeAllocation">
+        <el-input
+          v-model="queryParams.beforeAllocation"
+          placeholder="请输入调拨前"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="调拨后" prop="afterAllocation">
+        <el-input
+          v-model="queryParams.afterAllocation"
+          placeholder="请输入调拨后"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="创建时间" prop="createTime">
+        <el-date-picker clearable
+          v-model="queryParams.createTime"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="请选择创建时间">
+        </el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -23,7 +47,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['system:ceshi:add']"
+          v-hasPermi="['system:implement:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -34,7 +58,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['system:ceshi:edit']"
+          v-hasPermi="['system:implement:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -45,7 +69,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['system:ceshi:remove']"
+          v-hasPermi="['system:implement:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -55,23 +79,22 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['system:ceshi:export']"
+          v-hasPermi="['system:implement:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="ceshiList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="implementList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="" align="center" prop="id" />
-      <el-table-column label="名" align="center" prop="name" />
-      <el-table-column label="文件地址" align="center" prop="wenjiandizhi" />
-      <el-table-column label="图片地址" align="center" prop="tupiandizhi" width="100">
+      <el-table-column label="SN码" align="center" prop="sn" />
+      <el-table-column label="调拨前" align="center" prop="beforeAllocation" />
+      <el-table-column label="调拨后" align="center" prop="afterAllocation" />
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template slot-scope="scope">
-          <image-preview :src="scope.row.tupiandizhi" :width="50" :height="50"/>
+          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="备注" align="center" prop="bak" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -79,19 +102,19 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['system:ceshi:edit']"
+            v-hasPermi="['system:implement:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['system:ceshi:remove']"
+            v-hasPermi="['system:implement:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-
+    
     <pagination
       v-show="total>0"
       :total="total"
@@ -99,22 +122,10 @@
       :limit.sync="queryParams.pageSize"
       @pagination="getList"
     />
-111
-    <!-- 添加或修改测试对话框 -->
+
+    <!-- 添加或修改机具调拨记录对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="名" prop="name">
-          <el-input v-model="form.name" placeholder="请输入名" />
-        </el-form-item>
-        <el-form-item label="文件地址" prop="wenjiandizhi">
-          <file-upload v-model="form.wenjiandizhi"/>
-        </el-form-item>
-        <el-form-item label="图片地址" prop="tupiandizhi">
-          <image-upload v-model="form.tupiandizhi"/>
-        </el-form-item>
-        <el-form-item label="备注">
-          <editor v-model="form.bak" :min-height="192"/>
-        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -125,10 +136,10 @@
 </template>
 
 <script>
-import { listCeshi, getCeshi, delCeshi, addCeshi, updateCeshi } from "@/api/system/ceshi";
+import { listImplement, getImplement, delImplement, addImplement, updateImplement } from "@/api/system/implement";
 
 export default {
-  name: "Ceshi",
+  name: "Implement",
   data() {
     return {
       // 遮罩层
@@ -143,8 +154,8 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 测试表格数据
-      ceshiList: [],
+      // 机具调拨记录表格数据
+      implementList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -153,10 +164,10 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        name: null,
-        wenjiandizhi: null,
-        tupiandizhi: null,
-        bak: null
+        sn: null,
+        beforeAllocation: null,
+        afterAllocation: null,
+        createTime: null,
       },
       // 表单参数
       form: {},
@@ -169,11 +180,11 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询测试列表 */
+    /** 查询机具调拨记录列表 */
     getList() {
       this.loading = true;
-      listCeshi(this.queryParams).then(response => {
-        this.ceshiList = response.rows;
+      listImplement(this.queryParams).then(response => {
+        this.implementList = response.rows;
         this.total = response.total;
         this.loading = false;
       });
@@ -187,10 +198,17 @@ export default {
     reset() {
       this.form = {
         id: null,
-        name: null,
-        wenjiandizhi: null,
-        tupiandizhi: null,
-        bak: null
+        sn: null,
+        beforeAllocation: null,
+        afterAllocation: null,
+        createTime: null,
+        updateTime: null,
+        state: null,
+        bak1: null,
+        bak2: null,
+        bak3: null,
+        bak4: null,
+        bak5: null
       };
       this.resetForm("form");
     },
@@ -214,16 +232,16 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加测试";
+      this.title = "添加机具调拨记录";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids
-      getCeshi(id).then(response => {
+      getImplement(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改测试";
+        this.title = "修改机具调拨记录";
       });
     },
     /** 提交按钮 */
@@ -231,13 +249,13 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.id != null) {
-            updateCeshi(this.form).then(response => {
+            updateImplement(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addCeshi(this.form).then(response => {
+            addImplement(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -249,8 +267,8 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除测试编号为"' + ids + '"的数据项？').then(function() {
-        return delCeshi(ids);
+      this.$modal.confirm('是否确认删除机具调拨记录编号为"' + ids + '"的数据项？').then(function() {
+        return delImplement(ids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
@@ -258,9 +276,9 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('system/ceshi/export', {
+      this.download('system/implement/export', {
         ...this.queryParams
-      }, `ceshi_${new Date().getTime()}.xlsx`)
+      }, `implement_${new Date().getTime()}.xlsx`)
     }
   }
 };

@@ -1,10 +1,18 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="名" prop="name">
+      <el-form-item label="品牌" prop="brandName">
         <el-input
-          v-model="queryParams.name"
-          placeholder="请输入名"
+          v-model="queryParams.brandName"
+          placeholder="请输入品牌"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="型号" prop="model">
+        <el-input
+          v-model="queryParams.model"
+          placeholder="请输入型号"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -23,7 +31,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['system:ceshi:add']"
+          v-hasPermi="['system:brand:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -34,7 +42,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['system:ceshi:edit']"
+          v-hasPermi="['system:brand:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -45,7 +53,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['system:ceshi:remove']"
+          v-hasPermi="['system:brand:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -55,23 +63,23 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['system:ceshi:export']"
+          v-hasPermi="['system:brand:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="ceshiList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="brandList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="" align="center" prop="id" />
-      <el-table-column label="名" align="center" prop="name" />
-      <el-table-column label="文件地址" align="center" prop="wenjiandizhi" />
-      <el-table-column label="图片地址" align="center" prop="tupiandizhi" width="100">
-        <template slot-scope="scope">
-          <image-preview :src="scope.row.tupiandizhi" :width="50" :height="50"/>
-        </template>
-      </el-table-column>
-      <el-table-column label="备注" align="center" prop="bak" />
+      <el-table-column label="序号" align="center" prop="brandId" />
+      <el-table-column label="排序" align="center" prop="sort" />
+      <el-table-column label="厂家" align="center" prop="manufacName" />
+      <el-table-column label="品牌" align="center" prop="brandName" />
+      <el-table-column label="型号" align="center" prop="model" />
+      <el-table-column label="服务费收取最大值" align="center" prop="servCharMax" />
+      <el-table-column label="图片" align="center" prop="machinePictue" />
+      <el-table-column label="备份字段1" align="center" prop="bake1" />
+      <el-table-column label="备份字段2" align="center" prop="bake2" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -79,19 +87,19 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['system:ceshi:edit']"
+            v-hasPermi="['system:brand:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['system:ceshi:remove']"
+            v-hasPermi="['system:brand:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-
+    
     <pagination
       v-show="total>0"
       :total="total"
@@ -99,21 +107,33 @@
       :limit.sync="queryParams.pageSize"
       @pagination="getList"
     />
-111
-    <!-- 添加或修改测试对话框 -->
+
+    <!-- 添加或修改品牌型号对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="名" prop="name">
-          <el-input v-model="form.name" placeholder="请输入名" />
+        <el-form-item label="排序" prop="sort">
+          <el-input v-model="form.sort" placeholder="请输入排序" />
         </el-form-item>
-        <el-form-item label="文件地址" prop="wenjiandizhi">
-          <file-upload v-model="form.wenjiandizhi"/>
+        <el-form-item label="厂家" prop="manufacName">
+          <el-input v-model="form.manufacName" placeholder="请输入厂家" />
         </el-form-item>
-        <el-form-item label="图片地址" prop="tupiandizhi">
-          <image-upload v-model="form.tupiandizhi"/>
+        <el-form-item label="品牌" prop="brandName">
+          <el-input v-model="form.brandName" placeholder="请输入品牌" />
         </el-form-item>
-        <el-form-item label="备注">
-          <editor v-model="form.bak" :min-height="192"/>
+        <el-form-item label="型号" prop="model">
+          <el-input v-model="form.model" placeholder="请输入型号" />
+        </el-form-item>
+        <el-form-item label="服务费收取最大值" prop="servCharMax">
+          <el-input v-model="form.servCharMax" placeholder="请输入服务费收取最大值" />
+        </el-form-item>
+        <el-form-item label="图片" prop="machinePictue">
+          <el-input v-model="form.machinePictue" placeholder="请输入图片" />
+        </el-form-item>
+        <el-form-item label="备份字段1" prop="bake1">
+          <el-input v-model="form.bake1" placeholder="请输入备份字段1" />
+        </el-form-item>
+        <el-form-item label="备份字段2" prop="bake2">
+          <el-input v-model="form.bake2" placeholder="请输入备份字段2" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -125,10 +145,10 @@
 </template>
 
 <script>
-import { listCeshi, getCeshi, delCeshi, addCeshi, updateCeshi } from "@/api/system/ceshi";
+import { listBrand, getBrand, delBrand, addBrand, updateBrand } from "@/api/system/brand";
 
 export default {
-  name: "Ceshi",
+  name: "Brand",
   data() {
     return {
       // 遮罩层
@@ -143,8 +163,8 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 测试表格数据
-      ceshiList: [],
+      // 品牌型号表格数据
+      brandList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -153,10 +173,8 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        name: null,
-        wenjiandizhi: null,
-        tupiandizhi: null,
-        bak: null
+        brandName: null,
+        model: null,
       },
       // 表单参数
       form: {},
@@ -169,11 +187,11 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询测试列表 */
+    /** 查询品牌型号列表 */
     getList() {
       this.loading = true;
-      listCeshi(this.queryParams).then(response => {
-        this.ceshiList = response.rows;
+      listBrand(this.queryParams).then(response => {
+        this.brandList = response.rows;
         this.total = response.total;
         this.loading = false;
       });
@@ -186,11 +204,15 @@ export default {
     // 表单重置
     reset() {
       this.form = {
-        id: null,
-        name: null,
-        wenjiandizhi: null,
-        tupiandizhi: null,
-        bak: null
+        brandId: null,
+        sort: null,
+        manufacName: null,
+        brandName: null,
+        model: null,
+        servCharMax: null,
+        machinePictue: null,
+        bake1: null,
+        bake2: null
       };
       this.resetForm("form");
     },
@@ -206,7 +228,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.id)
+      this.ids = selection.map(item => item.brandId)
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
@@ -214,30 +236,30 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加测试";
+      this.title = "添加品牌型号";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const id = row.id || this.ids
-      getCeshi(id).then(response => {
+      const brandId = row.brandId || this.ids
+      getBrand(brandId).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改测试";
+        this.title = "修改品牌型号";
       });
     },
     /** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.id != null) {
-            updateCeshi(this.form).then(response => {
+          if (this.form.brandId != null) {
+            updateBrand(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addCeshi(this.form).then(response => {
+            addBrand(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -248,9 +270,9 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除测试编号为"' + ids + '"的数据项？').then(function() {
-        return delCeshi(ids);
+      const brandIds = row.brandId || this.ids;
+      this.$modal.confirm('是否确认删除品牌型号编号为"' + brandIds + '"的数据项？').then(function() {
+        return delBrand(brandIds);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
@@ -258,9 +280,9 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('system/ceshi/export', {
+      this.download('system/brand/export', {
         ...this.queryParams
-      }, `ceshi_${new Date().getTime()}.xlsx`)
+      }, `brand_${new Date().getTime()}.xlsx`)
     }
   }
 };

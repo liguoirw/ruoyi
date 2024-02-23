@@ -134,7 +134,7 @@
           v-hasPermi="['system:agent:export']"
         >导出</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList2"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="agentList" @selection-change="handleSelectionChange"  >
@@ -201,7 +201,7 @@
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
-      @pagination="getList"
+      @pagination="getList2"
     />
 
     <!-- 添加或修改代理商对话框 -->
@@ -268,7 +268,7 @@
 </template>
 
 <script>
-import { listAgent, getAgent, delAgent, addAgent, updateAgent } from "@/api/system/agent";
+import { listAgent2, getAgent, delAgent, addAgent, updateAgent } from "@/api/system/agent";
 
 export default {
   name: "Agent",
@@ -320,13 +320,13 @@ export default {
     };
   },
   created() {
-    this.getList();
+    this.getList2();
   },
   methods: {
     /** 查询代理商列表 */
-    getList() {
+    getList2() {
       this.loading = true;
-      listAgent(this.queryParams).then(response => {
+      listAgent2(this.queryParams).then(response => {
         this.agentList = response.rows;
         this.total = response.total;
         this.loading = false;
@@ -371,7 +371,7 @@ export default {
     /** 搜索按钮操作 */
     handleQuery() {
       this.queryParams.pageNum = 1;
-      this.getList();
+      this.getList2();
     },
     /** 重置按钮操作 */
     resetQuery() {
@@ -408,13 +408,13 @@ export default {
             updateAgent(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
-              this.getList();
+              this.getList2();
             });
           } else {
             addAgent(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
-              this.getList();
+              this.getList2();
             });
           }
         }
@@ -426,7 +426,7 @@ export default {
       this.$modal.confirm('是否确认删除代理商编号为"' + ids + '"的数据项？').then(function() {
         return delAgent(ids);
       }).then(() => {
-        this.getList();
+        this.getList2();
         this.$modal.msgSuccess("删除成功");
       }).catch(() => {});
     },

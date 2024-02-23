@@ -3,16 +3,11 @@ package com.ruoyi.web.controller.system;
 import java.util.List;
 import java.util.Random;
 import javax.servlet.http.HttpServletResponse;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -40,12 +35,24 @@ public class YkyAgentController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:agent:list')")
     @GetMapping("/list")
-    public TableDataInfo list(YkyAgent ykyAgent)
+    public TableDataInfo list( YkyAgent ykyAgent)
     {
         startPage();
         List<YkyAgent> list = ykyAgentService.selectYkyAgentList(ykyAgent);
         return getDataTable(list);
     }
+
+    
+    @PreAuthorize("@ss.hasPermi('system:agent:list2')")
+    @GetMapping("/list2")
+    public TableDataInfo list2( YkyAgent ykyAgent)
+    {
+        startPage();
+        ykyAgent.setAgentStatus("1");
+        List<YkyAgent> list = ykyAgentService.selectYkyAgentList(ykyAgent);
+        return getDataTable(list);
+    }
+
 
     /**
      * 导出代理商列表

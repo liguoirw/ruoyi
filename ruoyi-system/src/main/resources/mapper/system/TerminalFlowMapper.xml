@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TerminalFlowMapper">
+    
+    <resultMap type="TerminalFlow" id="TerminalFlowResult">
+        <result property="id"    column="id"    />
+        <result property="sn"    column="sn"    />
+        <result property="brandId"    column="brand_id"    />
+        <result property="merchantNum"    column="merchant_num"    />
+        <result property="merchantName"    column="merchant_name"    />
+        <result property="state"    column="state"    />
+        <result property="receiptNum"    column="receipt_num"    />
+        <result property="serialNum"    column="serial_num"    />
+        <result property="money"    column="money"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="agent"    column="agent"    />
+        <result property="agentPhone"    column="agent_phone"    />
+        <result property="requestReceipt"    column="request_receipt"    />
+        <result property="completeTime"    column="complete_time"    />
+        <result property="ceshi3"    column="ceshi3"    />
+        <result property="ceshi2"    column="ceshi2"    />
+        <result property="ceshi4"    column="ceshi4"    />
+        <result property="ceshi5"    column="ceshi5"    />
+        <result property="ceshi6"    column="ceshi6"    />
+        <result property="ceshi7"    column="ceshi7"    />
+    </resultMap>
+
+    <sql id="selectTerminalFlowVo">
+        select id, sn, brand_id, merchant_num, merchant_name, state, receipt_num, serial_num, money, create_time, update_time, agent, agent_phone, request_receipt, complete_time, ceshi3, ceshi2, ceshi4, ceshi5, ceshi6, ceshi7 from terminal_flow
+    </sql>
+
+    <select id="selectTerminalFlowList" parameterType="TerminalFlow" resultMap="TerminalFlowResult">
+        <include refid="selectTerminalFlowVo"/>
+        <where>  
+            <if test="sn != null "> and sn = #{sn}</if>
+            <if test="brandId != null  and brandId != ''"> and brand_id = #{brandId}</if>
+            <if test="merchantNum != null "> and merchant_num = #{merchantNum}</if>
+            <if test="merchantName != null  and merchantName != ''"> and merchant_name like concat('%', #{merchantName}, '%')</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+            <if test="agent != null "> and agent = #{agent}</if>
+            <if test="agentPhone != null "> and agent_phone = #{agentPhone}</if>
+            <if test="completeTime != null "> and complete_time = #{completeTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectTerminalFlowById" parameterType="Long" resultMap="TerminalFlowResult">
+        <include refid="selectTerminalFlowVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTerminalFlow" parameterType="TerminalFlow" useGeneratedKeys="true" keyProperty="id">
+        insert into terminal_flow
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sn != null">sn,</if>
+            <if test="brandId != null">brand_id,</if>
+            <if test="merchantNum != null">merchant_num,</if>
+            <if test="merchantName != null">merchant_name,</if>
+            <if test="state != null">state,</if>
+            <if test="receiptNum != null">receipt_num,</if>
+            <if test="serialNum != null">serial_num,</if>
+            <if test="money != null">money,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="agent != null">agent,</if>
+            <if test="agentPhone != null">agent_phone,</if>
+            <if test="requestReceipt != null">request_receipt,</if>
+            <if test="completeTime != null">complete_time,</if>
+            <if test="ceshi3 != null">ceshi3,</if>
+            <if test="ceshi2 != null">ceshi2,</if>
+            <if test="ceshi4 != null">ceshi4,</if>
+            <if test="ceshi5 != null">ceshi5,</if>
+            <if test="ceshi6 != null">ceshi6,</if>
+            <if test="ceshi7 != null">ceshi7,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sn != null">#{sn},</if>
+            <if test="brandId != null">#{brandId},</if>
+            <if test="merchantNum != null">#{merchantNum},</if>
+            <if test="merchantName != null">#{merchantName},</if>
+            <if test="state != null">#{state},</if>
+            <if test="receiptNum != null">#{receiptNum},</if>
+            <if test="serialNum != null">#{serialNum},</if>
+            <if test="money != null">#{money},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="agent != null">#{agent},</if>
+            <if test="agentPhone != null">#{agentPhone},</if>
+            <if test="requestReceipt != null">#{requestReceipt},</if>
+            <if test="completeTime != null">#{completeTime},</if>
+            <if test="ceshi3 != null">#{ceshi3},</if>
+            <if test="ceshi2 != null">#{ceshi2},</if>
+            <if test="ceshi4 != null">#{ceshi4},</if>
+            <if test="ceshi5 != null">#{ceshi5},</if>
+            <if test="ceshi6 != null">#{ceshi6},</if>
+            <if test="ceshi7 != null">#{ceshi7},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTerminalFlow" parameterType="TerminalFlow">
+        update terminal_flow
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sn != null">sn = #{sn},</if>
+            <if test="brandId != null">brand_id = #{brandId},</if>
+            <if test="merchantNum != null">merchant_num = #{merchantNum},</if>
+            <if test="merchantName != null">merchant_name = #{merchantName},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="receiptNum != null">receipt_num = #{receiptNum},</if>
+            <if test="serialNum != null">serial_num = #{serialNum},</if>
+            <if test="money != null">money = #{money},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="agent != null">agent = #{agent},</if>
+            <if test="agentPhone != null">agent_phone = #{agentPhone},</if>
+            <if test="requestReceipt != null">request_receipt = #{requestReceipt},</if>
+            <if test="completeTime != null">complete_time = #{completeTime},</if>
+            <if test="ceshi3 != null">ceshi3 = #{ceshi3},</if>
+            <if test="ceshi2 != null">ceshi2 = #{ceshi2},</if>
+            <if test="ceshi4 != null">ceshi4 = #{ceshi4},</if>
+            <if test="ceshi5 != null">ceshi5 = #{ceshi5},</if>
+            <if test="ceshi6 != null">ceshi6 = #{ceshi6},</if>
+            <if test="ceshi7 != null">ceshi7 = #{ceshi7},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTerminalFlowById" parameterType="Long">
+        delete from terminal_flow where id = #{id}
+    </delete>
+
+    <delete id="deleteTerminalFlowByIds" parameterType="String">
+        delete from terminal_flow where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
