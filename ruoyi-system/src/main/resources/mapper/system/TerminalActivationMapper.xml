@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TerminalActivationMapper">
+    
+    <resultMap type="TerminalActivation" id="TerminalActivationResult">
+        <result property="id"    column="id"    />
+        <result property="pinpai"    column="pinpai"    />
+        <result property="zhongduanxinghao"    column="zhongduanxinghao"    />
+        <result property="zhongduansn"    column="zhongduansn"    />
+        <result property="dls"    column="dls"    />
+        <result property="dlsdh"    column="dlsdh"    />
+        <result property="ydbm"    column="ydbm"    />
+        <result property="shbm"    column="shbm"    />
+        <result property="shmc"    column="shmc"    />
+        <result property="yfwfhd"    column="yfwfhd"    />
+        <result property="cysimhd"    column="cysimhd"    />
+        <result property="djfwf"    column="djfwf"    />
+        <result property="simfwf"    column="simfwf"    />
+        <result property="simkft"    column="simkft"    />
+        <result property="fwfdjhf"    column="fwfdjhf"    />
+        <result property="fwfkkzt"    column="fwfkkzt"    />
+        <result property="yjhfx"    column="yjhfx"    />
+        <result property="ydbfx"    column="ydbfx"    />
+        <result property="sbjysj"    column="sbjysj"    />
+        <result property="jmfpsj"    column="jmfpsj"    />
+        <result property="zhjysj"    column="zhjysj"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="status1"    column="status1"    />
+        <result property="bak1"    column="bak1"    />
+        <result property="bak2"    column="bak2"    />
+        <result property="bak3"    column="bak3"    />
+        <result property="bak4"    column="bak4"    />
+        <result property="bak5"    column="bak5"    />
+        <result property="bak6"    column="bak6"    />
+        <result property="bak7"    column="bak7"    />
+    </resultMap>
+
+    <sql id="selectTerminalActivationVo">
+        select id, pinpai, zhongduanxinghao, zhongduansn, dls, dlsdh, ydbm, shbm, shmc, yfwfhd, cysimhd, djfwf, simfwf, simkft, fwfdjhf, fwfkkzt, yjhfx, ydbfx, sbjysj, jmfpsj, zhjysj, create_time, status1, bak1, bak2, bak3, bak4, bak5, bak6, bak7 from terminal_activation
+    </sql>
+
+    <select id="selectTerminalActivationList" parameterType="TerminalActivation" resultMap="TerminalActivationResult">
+        <include refid="selectTerminalActivationVo"/>
+        <where>  
+            <if test="pinpai != null  and pinpai != ''"> and pinpai = #{pinpai}</if>
+            <if test="zhongduanxinghao != null  and zhongduanxinghao != ''"> and zhongduanxinghao = #{zhongduanxinghao}</if>
+            <if test="zhongduansn != null  and zhongduansn != ''"> and zhongduansn = #{zhongduansn}</if>
+            <if test="dls != null  and dls != ''"> and dls = #{dls}</if>
+            <if test="dlsdh != null  and dlsdh != ''"> and dlsdh = #{dlsdh}</if>
+            <if test="ydbm != null  and ydbm != ''"> and ydbm = #{ydbm}</if>
+            <if test="shbm != null  and shbm != ''"> and shbm = #{shbm}</if>
+            <if test="shmc != null  and shmc != ''"> and shmc = #{shmc}</if>
+            <if test="yfwfhd != null  and yfwfhd != ''"> and yfwfhd = #{yfwfhd}</if>
+            <if test="cysimhd != null  and cysimhd != ''"> and cysimhd = #{cysimhd}</if>
+            <if test="simfwf != null "> and simfwf = #{simfwf}</if>
+            <if test="fwfkkzt != null  and fwfkkzt != ''"> and fwfkkzt = #{fwfkkzt}</if>
+            <if test="yjhfx != null  and yjhfx != ''"> and yjhfx = #{yjhfx}</if>
+            <if test="ydbfx != null  and ydbfx != ''"> and ydbfx = #{ydbfx}</if>
+        </where>
+    </select>
+    
+    <select id="selectTerminalActivationById" parameterType="Long" resultMap="TerminalActivationResult">
+        <include refid="selectTerminalActivationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTerminalActivation" parameterType="TerminalActivation" useGeneratedKeys="true" keyProperty="id">
+        insert into terminal_activation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pinpai != null">pinpai,</if>
+            <if test="zhongduanxinghao != null">zhongduanxinghao,</if>
+            <if test="zhongduansn != null">zhongduansn,</if>
+            <if test="dls != null">dls,</if>
+            <if test="dlsdh != null">dlsdh,</if>
+            <if test="ydbm != null">ydbm,</if>
+            <if test="shbm != null">shbm,</if>
+            <if test="shmc != null">shmc,</if>
+            <if test="yfwfhd != null">yfwfhd,</if>
+            <if test="cysimhd != null">cysimhd,</if>
+            <if test="djfwf != null">djfwf,</if>
+            <if test="simfwf != null">simfwf,</if>
+            <if test="simkft != null">simkft,</if>
+            <if test="fwfdjhf != null">fwfdjhf,</if>
+            <if test="fwfkkzt != null">fwfkkzt,</if>
+            <if test="yjhfx != null">yjhfx,</if>
+            <if test="ydbfx != null">ydbfx,</if>
+            <if test="sbjysj != null">sbjysj,</if>
+            <if test="jmfpsj != null">jmfpsj,</if>
+            <if test="zhjysj != null">zhjysj,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="status1 != null">status1,</if>
+            <if test="bak1 != null">bak1,</if>
+            <if test="bak2 != null">bak2,</if>
+            <if test="bak3 != null">bak3,</if>
+            <if test="bak4 != null">bak4,</if>
+            <if test="bak5 != null">bak5,</if>
+            <if test="bak6 != null">bak6,</if>
+            <if test="bak7 != null">bak7,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pinpai != null">#{pinpai},</if>
+            <if test="zhongduanxinghao != null">#{zhongduanxinghao},</if>
+            <if test="zhongduansn != null">#{zhongduansn},</if>
+            <if test="dls != null">#{dls},</if>
+            <if test="dlsdh != null">#{dlsdh},</if>
+            <if test="ydbm != null">#{ydbm},</if>
+            <if test="shbm != null">#{shbm},</if>
+            <if test="shmc != null">#{shmc},</if>
+            <if test="yfwfhd != null">#{yfwfhd},</if>
+            <if test="cysimhd != null">#{cysimhd},</if>
+            <if test="djfwf != null">#{djfwf},</if>
+            <if test="simfwf != null">#{simfwf},</if>
+            <if test="simkft != null">#{simkft},</if>
+            <if test="fwfdjhf != null">#{fwfdjhf},</if>
+            <if test="fwfkkzt != null">#{fwfkkzt},</if>
+            <if test="yjhfx != null">#{yjhfx},</if>
+            <if test="ydbfx != null">#{ydbfx},</if>
+            <if test="sbjysj != null">#{sbjysj},</if>
+            <if test="jmfpsj != null">#{jmfpsj},</if>
+            <if test="zhjysj != null">#{zhjysj},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="status1 != null">#{status1},</if>
+            <if test="bak1 != null">#{bak1},</if>
+            <if test="bak2 != null">#{bak2},</if>
+            <if test="bak3 != null">#{bak3},</if>
+            <if test="bak4 != null">#{bak4},</if>
+            <if test="bak5 != null">#{bak5},</if>
+            <if test="bak6 != null">#{bak6},</if>
+            <if test="bak7 != null">#{bak7},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTerminalActivation" parameterType="TerminalActivation">
+        update terminal_activation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pinpai != null">pinpai = #{pinpai},</if>
+            <if test="zhongduanxinghao != null">zhongduanxinghao = #{zhongduanxinghao},</if>
+            <if test="zhongduansn != null">zhongduansn = #{zhongduansn},</if>
+            <if test="dls != null">dls = #{dls},</if>
+            <if test="dlsdh != null">dlsdh = #{dlsdh},</if>
+            <if test="ydbm != null">ydbm = #{ydbm},</if>
+            <if test="shbm != null">shbm = #{shbm},</if>
+            <if test="shmc != null">shmc = #{shmc},</if>
+            <if test="yfwfhd != null">yfwfhd = #{yfwfhd},</if>
+            <if test="cysimhd != null">cysimhd = #{cysimhd},</if>
+            <if test="djfwf != null">djfwf = #{djfwf},</if>
+            <if test="simfwf != null">simfwf = #{simfwf},</if>
+            <if test="simkft != null">simkft = #{simkft},</if>
+            <if test="fwfdjhf != null">fwfdjhf = #{fwfdjhf},</if>
+            <if test="fwfkkzt != null">fwfkkzt = #{fwfkkzt},</if>
+            <if test="yjhfx != null">yjhfx = #{yjhfx},</if>
+            <if test="ydbfx != null">ydbfx = #{ydbfx},</if>
+            <if test="sbjysj != null">sbjysj = #{sbjysj},</if>
+            <if test="jmfpsj != null">jmfpsj = #{jmfpsj},</if>
+            <if test="zhjysj != null">zhjysj = #{zhjysj},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="status1 != null">status1 = #{status1},</if>
+            <if test="bak1 != null">bak1 = #{bak1},</if>
+            <if test="bak2 != null">bak2 = #{bak2},</if>
+            <if test="bak3 != null">bak3 = #{bak3},</if>
+            <if test="bak4 != null">bak4 = #{bak4},</if>
+            <if test="bak5 != null">bak5 = #{bak5},</if>
+            <if test="bak6 != null">bak6 = #{bak6},</if>
+            <if test="bak7 != null">bak7 = #{bak7},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTerminalActivationById" parameterType="Long">
+        delete from terminal_activation where id = #{id}
+    </delete>
+
+    <delete id="deleteTerminalActivationByIds" parameterType="String">
+        delete from terminal_activation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TerminalImplementMapper">
+    
+    <resultMap type="TerminalImplement" id="TerminalImplementResult">
+        <result property="id"    column="id"    />
+        <result property="sn"    column="sn"    />
+        <result property="beforeAllocation"    column="before_allocation"    />
+        <result property="afterAllocation"    column="after_allocation"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="state"    column="state"    />
+        <result property="bak1"    column="bak1"    />
+        <result property="bak2"    column="bak2"    />
+        <result property="bak3"    column="bak3"    />
+        <result property="bak4"    column="bak4"    />
+        <result property="bak5"    column="bak5"    />
+    </resultMap>
+
+    <sql id="selectTerminalImplementVo">
+        select id, sn, before_allocation, after_allocation, create_time, update_time, state, bak1, bak2, bak3, bak4, bak5 from terminal_implement
+    </sql>
+
+    <select id="selectTerminalImplementList" parameterType="TerminalImplement" resultMap="TerminalImplementResult">
+        <include refid="selectTerminalImplementVo"/>
+        <where>  
+            <if test="sn != null  and sn != ''"> and sn = #{sn}</if>
+            <if test="beforeAllocation != null  and beforeAllocation != ''"> and before_allocation = #{beforeAllocation}</if>
+            <if test="afterAllocation != null  and afterAllocation != ''"> and after_allocation = #{afterAllocation}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectTerminalImplementById" parameterType="Long" resultMap="TerminalImplementResult">
+        <include refid="selectTerminalImplementVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTerminalImplement" parameterType="TerminalImplement" useGeneratedKeys="true" keyProperty="id">
+        insert into terminal_implement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sn != null">sn,</if>
+            <if test="beforeAllocation != null">before_allocation,</if>
+            <if test="afterAllocation != null">after_allocation,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="state != null">state,</if>
+            <if test="bak1 != null">bak1,</if>
+            <if test="bak2 != null">bak2,</if>
+            <if test="bak3 != null">bak3,</if>
+            <if test="bak4 != null">bak4,</if>
+            <if test="bak5 != null">bak5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sn != null">#{sn},</if>
+            <if test="beforeAllocation != null">#{beforeAllocation},</if>
+            <if test="afterAllocation != null">#{afterAllocation},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="state != null">#{state},</if>
+            <if test="bak1 != null">#{bak1},</if>
+            <if test="bak2 != null">#{bak2},</if>
+            <if test="bak3 != null">#{bak3},</if>
+            <if test="bak4 != null">#{bak4},</if>
+            <if test="bak5 != null">#{bak5},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTerminalImplement" parameterType="TerminalImplement">
+        update terminal_implement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sn != null">sn = #{sn},</if>
+            <if test="beforeAllocation != null">before_allocation = #{beforeAllocation},</if>
+            <if test="afterAllocation != null">after_allocation = #{afterAllocation},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="bak1 != null">bak1 = #{bak1},</if>
+            <if test="bak2 != null">bak2 = #{bak2},</if>
+            <if test="bak3 != null">bak3 = #{bak3},</if>
+            <if test="bak4 != null">bak4 = #{bak4},</if>
+            <if test="bak5 != null">bak5 = #{bak5},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTerminalImplementById" parameterType="Long">
+        delete from terminal_implement where id = #{id}
+    </delete>
+
+    <delete id="deleteTerminalImplementByIds" parameterType="String">
+        delete from terminal_implement where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

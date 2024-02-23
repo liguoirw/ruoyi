@@ -9,6 +9,14 @@ export function listAgent(query) {
   })
 }
 
+export function listAgent2(query) {
+  return request({
+    url: '/system/agent/list2',
+    method: 'get',
+    params: query
+  })
+}
+
 // 查询代理商详细
 export function getAgent(id) {
   return request({
