@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.MachineTemplateMapper">
+    
+    <resultMap type="MachineTemplate" id="MachineTemplateResult">
+        <result property="id"    column="id"    />
+        <result property="founder"    column="founder"    />
+        <result property="templateName"    column="template_name"    />
+        <result property="jhAmount"    column="jh_amount"    />
+        <result property="jhCashback"    column="jh_cashback"    />
+        <result property="jhJzDays"    column="jh_jz_days"    />
+        <result property="wjhKkAmount"    column="wjh_kk_amount"    />
+        <result property="wjhQuarter"    column="wjh_quarter"    />
+        <result property="zdyWjhDays"    column="zdy_wjh_days"    />
+        <result property="zdyWjhAmount"    column="zdy_wjh_amount"    />
+        <result property="wjhKk"    column="wjh_kk"    />
+        <result property="dbConditions"    column="db_conditions"    />
+        <result property="dbCashback"    column="db_cashback"    />
+        <result property="dbJzTime"    column="db_jz_time"    />
+        <result property="jdCashbackCondition"    column="jd_cashback_condition"    />
+        <result property="jdCashbackPeriodMonths"    column="jd_cashback_period_months"    />
+        <result property="jdCashbackAmount"    column="jd_cashback_amount"    />
+        <result property="vipCashbackAmount"    column="vip_cashback_amount"    />
+        <result property="simCashback"    column="sim_cashback"    />
+        <result property="simLoopCashback"    column="sim_loop_cashback"    />
+        <result property="creationTime"    column="creation_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="notes1"    column="notes1"    />
+        <result property="notes2"    column="notes2"    />
+        <result property="notes3"    column="notes3"    />
+        <result property="notes4"    column="notes4"    />
+        <result property="notes5"    column="notes5"    />
+    </resultMap>
+
+    <sql id="selectMachineTemplateVo">
+        select id, founder, template_name, jh_amount, jh_cashback, jh_jz_days, wjh_kk_amount, wjh_quarter, zdy_wjh_days, zdy_wjh_amount, wjh_kk, db_conditions, db_cashback, db_jz_time, jd_cashback_condition, jd_cashback_period_months, jd_cashback_amount, vip_cashback_amount, sim_cashback, sim_loop_cashback, creation_time, update_time, notes1, notes2, notes3, notes4, notes5 from machine_template
+    </sql>
+
+    <select id="selectMachineTemplateList" parameterType="MachineTemplate" resultMap="MachineTemplateResult">
+        <include refid="selectMachineTemplateVo"/>
+        <where>  
+            <if test="founder != null  and founder != ''"> and founder = #{founder}</if>
+            <if test="templateName != null  and templateName != ''"> and template_name like concat('%', #{templateName}, '%')</if>
+            <if test="simLoopCashback != null  and simLoopCashback != ''"> and sim_loop_cashback = #{simLoopCashback}</if>
+        </where>
+    </select>
+    
+    <select id="selectMachineTemplateById" parameterType="Long" resultMap="MachineTemplateResult">
+        <include refid="selectMachineTemplateVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMachineTemplate" parameterType="MachineTemplate" useGeneratedKeys="true" keyProperty="id">
+        insert into machine_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="founder != null">founder,</if>
+            <if test="templateName != null and templateName != ''">template_name,</if>
+            <if test="jhAmount != null">jh_amount,</if>
+            <if test="jhCashback != null">jh_cashback,</if>
+            <if test="jhJzDays != null">jh_jz_days,</if>
+            <if test="wjhKkAmount != null">wjh_kk_amount,</if>
+            <if test="wjhQuarter != null">wjh_quarter,</if>
+            <if test="zdyWjhDays != null">zdy_wjh_days,</if>
+            <if test="zdyWjhAmount != null">zdy_wjh_amount,</if>
+            <if test="wjhKk != null">wjh_kk,</if>
+            <if test="dbConditions != null">db_conditions,</if>
+            <if test="dbCashback != null">db_cashback,</if>
+            <if test="dbJzTime != null">db_jz_time,</if>
+            <if test="jdCashbackCondition != null">jd_cashback_condition,</if>
+            <if test="jdCashbackPeriodMonths != null">jd_cashback_period_months,</if>
+            <if test="jdCashbackAmount != null">jd_cashback_amount,</if>
+            <if test="vipCashbackAmount != null">vip_cashback_amount,</if>
+            <if test="simCashback != null">sim_cashback,</if>
+            <if test="simLoopCashback != null">sim_loop_cashback,</if>
+            <if test="creationTime != null">creation_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="notes1 != null">notes1,</if>
+            <if test="notes2 != null">notes2,</if>
+            <if test="notes3 != null">notes3,</if>
+            <if test="notes4 != null">notes4,</if>
+            <if test="notes5 != null">notes5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="founder != null">#{founder},</if>
+            <if test="templateName != null and templateName != ''">#{templateName},</if>
+            <if test="jhAmount != null">#{jhAmount},</if>
+            <if test="jhCashback != null">#{jhCashback},</if>
+            <if test="jhJzDays != null">#{jhJzDays},</if>
+            <if test="wjhKkAmount != null">#{wjhKkAmount},</if>
+            <if test="wjhQuarter != null">#{wjhQuarter},</if>
+            <if test="zdyWjhDays != null">#{zdyWjhDays},</if>
+            <if test="zdyWjhAmount != null">#{zdyWjhAmount},</if>
+            <if test="wjhKk != null">#{wjhKk},</if>
+            <if test="dbConditions != null">#{dbConditions},</if>
+            <if test="dbCashback != null">#{dbCashback},</if>
+            <if test="dbJzTime != null">#{dbJzTime},</if>
+            <if test="jdCashbackCondition != null">#{jdCashbackCondition},</if>
+            <if test="jdCashbackPeriodMonths != null">#{jdCashbackPeriodMonths},</if>
+            <if test="jdCashbackAmount != null">#{jdCashbackAmount},</if>
+            <if test="vipCashbackAmount != null">#{vipCashbackAmount},</if>
+            <if test="simCashback != null">#{simCashback},</if>
+            <if test="simLoopCashback != null">#{simLoopCashback},</if>
+            <if test="creationTime != null">#{creationTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="notes1 != null">#{notes1},</if>
+            <if test="notes2 != null">#{notes2},</if>
+            <if test="notes3 != null">#{notes3},</if>
+            <if test="notes4 != null">#{notes4},</if>
+            <if test="notes5 != null">#{notes5},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMachineTemplate" parameterType="MachineTemplate">
+        update machine_template
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="founder != null">founder = #{founder},</if>
+            <if test="templateName != null and templateName != ''">template_name = #{templateName},</if>
+            <if test="jhAmount != null">jh_amount = #{jhAmount},</if>
+            <if test="jhCashback != null">jh_cashback = #{jhCashback},</if>
+            <if test="jhJzDays != null">jh_jz_days = #{jhJzDays},</if>
+            <if test="wjhKkAmount != null">wjh_kk_amount = #{wjhKkAmount},</if>
+            <if test="wjhQuarter != null">wjh_quarter = #{wjhQuarter},</if>
+            <if test="zdyWjhDays != null">zdy_wjh_days = #{zdyWjhDays},</if>
+            <if test="zdyWjhAmount != null">zdy_wjh_amount = #{zdyWjhAmount},</if>
+            <if test="wjhKk != null">wjh_kk = #{wjhKk},</if>
+            <if test="dbConditions != null">db_conditions = #{dbConditions},</if>
+            <if test="dbCashback != null">db_cashback = #{dbCashback},</if>
+            <if test="dbJzTime != null">db_jz_time = #{dbJzTime},</if>
+            <if test="jdCashbackCondition != null">jd_cashback_condition = #{jdCashbackCondition},</if>
+            <if test="jdCashbackPeriodMonths != null">jd_cashback_period_months = #{jdCashbackPeriodMonths},</if>
+            <if test="jdCashbackAmount != null">jd_cashback_amount = #{jdCashbackAmount},</if>
+            <if test="vipCashbackAmount != null">vip_cashback_amount = #{vipCashbackAmount},</if>
+            <if test="simCashback != null">sim_cashback = #{simCashback},</if>
+            <if test="simLoopCashback != null">sim_loop_cashback = #{simLoopCashback},</if>
+            <if test="creationTime != null">creation_time = #{creationTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="notes1 != null">notes1 = #{notes1},</if>
+            <if test="notes2 != null">notes2 = #{notes2},</if>
+            <if test="notes3 != null">notes3 = #{notes3},</if>
+            <if test="notes4 != null">notes4 = #{notes4},</if>
+            <if test="notes5 != null">notes5 = #{notes5},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMachineTemplateById" parameterType="Long">
+        delete from machine_template where id = #{id}
+    </delete>
+
+    <delete id="deleteMachineTemplateByIds" parameterType="String">
+        delete from machine_template where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

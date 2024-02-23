@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.WithdrawalTemplateMapper">
+    
+    <resultMap type="WithdrawalTemplate" id="WithdrawalTemplateResult">
+        <result property="id"    column="id"    />
+        <result property="agentName"    column="agent_name"    />
+        <result property="templateName"    column="template_name"    />
+        <result property="fryeTax"    column="frye_tax"    />
+        <result property="fryedbCommission"    column="fryedb_commission"    />
+        <result property="jjfxyeTax"    column="jjfxye_tax"    />
+        <result property="jjfxyedbCommission"    column="jjfxyedb_commission"    />
+        <result property="creationTime"    column="creation_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="note1"    column="note1"    />
+        <result property="note2"    column="note2"    />
+        <result property="note3"    column="note3"    />
+        <result property="note4"    column="note4"    />
+        <result property="note5"    column="note5"    />
+    </resultMap>
+
+    <sql id="selectWithdrawalTemplateVo">
+        select id, agent_name, template_name, frye_tax, fryedb_commission, jjfxye_tax, jjfxyedb_commission, creation_time, update_time, note1, note2, note3, note4, note5 from withdrawal_template
+    </sql>
+
+    <select id="selectWithdrawalTemplateList" parameterType="WithdrawalTemplate" resultMap="WithdrawalTemplateResult">
+        <include refid="selectWithdrawalTemplateVo"/>
+        <where>  
+            <if test="agentName != null  and agentName != ''"> and agent_name like concat('%', #{agentName}, '%')</if>
+            <if test="templateName != null  and templateName != ''"> and template_name like concat('%', #{templateName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectWithdrawalTemplateById" parameterType="Long" resultMap="WithdrawalTemplateResult">
+        <include refid="selectWithdrawalTemplateVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertWithdrawalTemplate" parameterType="WithdrawalTemplate" useGeneratedKeys="true" keyProperty="id">
+        insert into withdrawal_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="agentName != null">agent_name,</if>
+            <if test="templateName != null">template_name,</if>
+            <if test="fryeTax != null">frye_tax,</if>
+            <if test="fryedbCommission != null">fryedb_commission,</if>
+            <if test="jjfxyeTax != null">jjfxye_tax,</if>
+            <if test="jjfxyedbCommission != null">jjfxyedb_commission,</if>
+            <if test="creationTime != null">creation_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="note1 != null">note1,</if>
+            <if test="note2 != null">note2,</if>
+            <if test="note3 != null">note3,</if>
+            <if test="note4 != null">note4,</if>
+            <if test="note5 != null">note5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="agentName != null">#{agentName},</if>
+            <if test="templateName != null">#{templateName},</if>
+            <if test="fryeTax != null">#{fryeTax},</if>
+            <if test="fryedbCommission != null">#{fryedbCommission},</if>
+            <if test="jjfxyeTax != null">#{jjfxyeTax},</if>
+            <if test="jjfxyedbCommission != null">#{jjfxyedbCommission},</if>
+            <if test="creationTime != null">#{creationTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="note1 != null">#{note1},</if>
+            <if test="note2 != null">#{note2},</if>
+            <if test="note3 != null">#{note3},</if>
+            <if test="note4 != null">#{note4},</if>
+            <if test="note5 != null">#{note5},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWithdrawalTemplate" parameterType="WithdrawalTemplate">
+        update withdrawal_template
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="agentName != null">agent_name = #{agentName},</if>
+            <if test="templateName != null">template_name = #{templateName},</if>
+            <if test="fryeTax != null">frye_tax = #{fryeTax},</if>
+            <if test="fryedbCommission != null">fryedb_commission = #{fryedbCommission},</if>
+            <if test="jjfxyeTax != null">jjfxye_tax = #{jjfxyeTax},</if>
+            <if test="jjfxyedbCommission != null">jjfxyedb_commission = #{jjfxyedbCommission},</if>
+            <if test="creationTime != null">creation_time = #{creationTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="note1 != null">note1 = #{note1},</if>
+            <if test="note2 != null">note2 = #{note2},</if>
+            <if test="note3 != null">note3 = #{note3},</if>
+            <if test="note4 != null">note4 = #{note4},</if>
+            <if test="note5 != null">note5 = #{note5},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWithdrawalTemplateById" parameterType="Long">
+        delete from withdrawal_template where id = #{id}
+    </delete>
+
+    <delete id="deleteWithdrawalTemplateByIds" parameterType="String">
+        delete from withdrawal_template where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

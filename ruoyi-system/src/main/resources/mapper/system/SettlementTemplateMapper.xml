@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SettlementTemplateMapper">
+    
+    <resultMap type="SettlementTemplate" id="SettlementTemplateResult">
+        <result property="id"    column="id"    />
+        <result property="brand"    column="brand"    />
+        <result property="founder"    column="founder"    />
+        <result property="templateName"    column="template_name"    />
+        <result property="jkthRate"    column="jkth_rate"    />
+        <result property="kjzfRate"    column="kjzf_rate"    />
+        <result property="jkskRate"    column="jksk_rate"    />
+        <result property="jkDb"    column="jk_db"    />
+        <result property="jkDebitCardCap"    column="jk_debit_card_cap"    />
+        <result property="jksmRate"    column="jksm_rate"    />
+        <result property="smT1Rate"    column="sm_t1_rate"    />
+        <result property="smD0Rate"    column="sm_d0_rate"    />
+        <result property="zhfwCommission"    column="zhfw_commission"    />
+        <result property="zhjyCommissionCap"    column="zhjy_commission_cap"    />
+        <result property="zhjyCommissionSingle"    column="zhjy_commission_single"    />
+        <result property="ptjyCommissionRate"    column="ptjy_commission_rate"    />
+        <result property="ptjyCommissionSingle"    column="ptjy_commission_single"    />
+        <result property="ptjyCommissionCap"    column="ptjy_commission_cap"    />
+        <result property="smallCommissionRate"    column="small_commission_rate"    />
+        <result property="smallSingle"    column="small_single"    />
+        <result property="smallT1Rate"    column="small_t1_rate"    />
+        <result property="zhjyT1Rate"    column="zhjy_t1_rate"    />
+        <result property="ptjyTiRate"    column="ptjy_ti_rate"    />
+        <result property="kjzfSingle"    column="kjzf_single"    />
+        <result property="creationTime"    column="creation_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="note1"    column="note1"    />
+        <result property="note2"    column="note2"    />
+        <result property="note3"    column="note3"    />
+        <result property="note4"    column="note4"    />
+        <result property="note5"    column="note5"    />
+    </resultMap>
+
+    <sql id="selectSettlementTemplateVo">
+        select id, brand, founder, template_name, jkth_rate, kjzf_rate, jksk_rate, jk_db, jk_debit_card_cap, jksm_rate, sm_t1_rate, sm_d0_rate, zhfw_commission, zhjy_commission_cap, zhjy_commission_single, ptjy_commission_rate, ptjy_commission_single, ptjy_commission_cap, small_commission_rate, small_single, small_t1_rate, zhjy_t1_rate, ptjy_ti_rate, kjzf_single, creation_time, update_time, note1, note2, note3, note4, note5 from settlement_template
+    </sql>
+
+    <select id="selectSettlementTemplateList" parameterType="SettlementTemplate" resultMap="SettlementTemplateResult">
+        <include refid="selectSettlementTemplateVo"/>
+        <where>  
+            <if test="brand != null  and brand != ''"> and brand = #{brand}</if>
+            <if test="founder != null  and founder != ''"> and founder = #{founder}</if>
+            <if test="templateName != null  and templateName != ''"> and template_name like concat('%', #{templateName}, '%')</if>
+            <if test="jkthRate != null  and jkthRate != ''"> and jkth_rate = #{jkthRate}</if>
+            <if test="kjzfRate != null  and kjzfRate != ''"> and kjzf_rate = #{kjzfRate}</if>
+            <if test="jkskRate != null  and jkskRate != ''"> and jksk_rate = #{jkskRate}</if>
+            <if test="jkDb != null  and jkDb != ''"> and jk_db = #{jkDb}</if>
+            <if test="jkDebitCardCap != null  and jkDebitCardCap != ''"> and jk_debit_card_cap = #{jkDebitCardCap}</if>
+            <if test="jksmRate != null  and jksmRate != ''"> and jksm_rate = #{jksmRate}</if>
+            <if test="smT1Rate != null  and smT1Rate != ''"> and sm_t1_rate = #{smT1Rate}</if>
+            <if test="smD0Rate != null  and smD0Rate != ''"> and sm_d0_rate = #{smD0Rate}</if>
+            <if test="zhfwCommission != null  and zhfwCommission != ''"> and zhfw_commission = #{zhfwCommission}</if>
+            <if test="zhjyCommissionCap != null  and zhjyCommissionCap != ''"> and zhjy_commission_cap = #{zhjyCommissionCap}</if>
+            <if test="zhjyCommissionSingle != null  and zhjyCommissionSingle != ''"> and zhjy_commission_single = #{zhjyCommissionSingle}</if>
+            <if test="ptjyCommissionRate != null  and ptjyCommissionRate != ''"> and ptjy_commission_rate = #{ptjyCommissionRate}</if>
+            <if test="ptjyCommissionSingle != null  and ptjyCommissionSingle != ''"> and ptjy_commission_single = #{ptjyCommissionSingle}</if>
+            <if test="ptjyCommissionCap != null  and ptjyCommissionCap != ''"> and ptjy_commission_cap = #{ptjyCommissionCap}</if>
+            <if test="smallCommissionRate != null  and smallCommissionRate != ''"> and small_commission_rate = #{smallCommissionRate}</if>
+            <if test="smallSingle != null  and smallSingle != ''"> and small_single = #{smallSingle}</if>
+            <if test="smallT1Rate != null  and smallT1Rate != ''"> and small_t1_rate = #{smallT1Rate}</if>
+            <if test="zhjyT1Rate != null  and zhjyT1Rate != ''"> and zhjy_t1_rate = #{zhjyT1Rate}</if>
+            <if test="ptjyTiRate != null  and ptjyTiRate != ''"> and ptjy_ti_rate = #{ptjyTiRate}</if>
+            <if test="kjzfSingle != null  and kjzfSingle != ''"> and kjzf_single = #{kjzfSingle}</if>
+            <if test="creationTime != null "> and creation_time = #{creationTime}</if>
+            <if test="note1 != null  and note1 != ''"> and note1 = #{note1}</if>
+            <if test="note2 != null  and note2 != ''"> and note2 = #{note2}</if>
+            <if test="note3 != null  and note3 != ''"> and note3 = #{note3}</if>
+            <if test="note4 != null  and note4 != ''"> and note4 = #{note4}</if>
+            <if test="note5 != null  and note5 != ''"> and note5 = #{note5}</if>
+        </where>
+    </select>
+    
+    <select id="selectSettlementTemplateById" parameterType="Long" resultMap="SettlementTemplateResult">
+        <include refid="selectSettlementTemplateVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSettlementTemplate" parameterType="SettlementTemplate">
+        insert into settlement_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="brand != null">brand,</if>
+            <if test="founder != null">founder,</if>
+            <if test="templateName != null">template_name,</if>
+            <if test="jkthRate != null">jkth_rate,</if>
+            <if test="kjzfRate != null">kjzf_rate,</if>
+            <if test="jkskRate != null">jksk_rate,</if>
+            <if test="jkDb != null">jk_db,</if>
+            <if test="jkDebitCardCap != null">jk_debit_card_cap,</if>
+            <if test="jksmRate != null">jksm_rate,</if>
+            <if test="smT1Rate != null">sm_t1_rate,</if>
+            <if test="smD0Rate != null">sm_d0_rate,</if>
+            <if test="zhfwCommission != null">zhfw_commission,</if>
+            <if test="zhjyCommissionCap != null">zhjy_commission_cap,</if>
+            <if test="zhjyCommissionSingle != null">zhjy_commission_single,</if>
+            <if test="ptjyCommissionRate != null">ptjy_commission_rate,</if>
+            <if test="ptjyCommissionSingle != null">ptjy_commission_single,</if>
+            <if test="ptjyCommissionCap != null">ptjy_commission_cap,</if>
+            <if test="smallCommissionRate != null">small_commission_rate,</if>
+            <if test="smallSingle != null">small_single,</if>
+            <if test="smallT1Rate != null">small_t1_rate,</if>
+            <if test="zhjyT1Rate != null">zhjy_t1_rate,</if>
+            <if test="ptjyTiRate != null">ptjy_ti_rate,</if>
+            <if test="kjzfSingle != null">kjzf_single,</if>
+            <if test="creationTime != null">creation_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="note1 != null">note1,</if>
+            <if test="note2 != null">note2,</if>
+            <if test="note3 != null">note3,</if>
+            <if test="note4 != null">note4,</if>
+            <if test="note5 != null">note5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="brand != null">#{brand},</if>
+            <if test="founder != null">#{founder},</if>
+            <if test="templateName != null">#{templateName},</if>
+            <if test="jkthRate != null">#{jkthRate},</if>
+            <if test="kjzfRate != null">#{kjzfRate},</if>
+            <if test="jkskRate != null">#{jkskRate},</if>
+            <if test="jkDb != null">#{jkDb},</if>
+            <if test="jkDebitCardCap != null">#{jkDebitCardCap},</if>
+            <if test="jksmRate != null">#{jksmRate},</if>
+            <if test="smT1Rate != null">#{smT1Rate},</if>
+            <if test="smD0Rate != null">#{smD0Rate},</if>
+            <if test="zhfwCommission != null">#{zhfwCommission},</if>
+            <if test="zhjyCommissionCap != null">#{zhjyCommissionCap},</if>
+            <if test="zhjyCommissionSingle != null">#{zhjyCommissionSingle},</if>
+            <if test="ptjyCommissionRate != null">#{ptjyCommissionRate},</if>
+            <if test="ptjyCommissionSingle != null">#{ptjyCommissionSingle},</if>
+            <if test="ptjyCommissionCap != null">#{ptjyCommissionCap},</if>
+            <if test="smallCommissionRate != null">#{smallCommissionRate},</if>
+            <if test="smallSingle != null">#{smallSingle},</if>
+            <if test="smallT1Rate != null">#{smallT1Rate},</if>
+            <if test="zhjyT1Rate != null">#{zhjyT1Rate},</if>
+            <if test="ptjyTiRate != null">#{ptjyTiRate},</if>
+            <if test="kjzfSingle != null">#{kjzfSingle},</if>
+            <if test="creationTime != null">#{creationTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="note1 != null">#{note1},</if>
+            <if test="note2 != null">#{note2},</if>
+            <if test="note3 != null">#{note3},</if>
+            <if test="note4 != null">#{note4},</if>
+            <if test="note5 != null">#{note5},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSettlementTemplate" parameterType="SettlementTemplate">
+        update settlement_template
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="brand != null">brand = #{brand},</if>
+            <if test="founder != null">founder = #{founder},</if>
+            <if test="templateName != null">template_name = #{templateName},</if>
+            <if test="jkthRate != null">jkth_rate = #{jkthRate},</if>
+            <if test="kjzfRate != null">kjzf_rate = #{kjzfRate},</if>
+            <if test="jkskRate != null">jksk_rate = #{jkskRate},</if>
+            <if test="jkDb != null">jk_db = #{jkDb},</if>
+            <if test="jkDebitCardCap != null">jk_debit_card_cap = #{jkDebitCardCap},</if>
+            <if test="jksmRate != null">jksm_rate = #{jksmRate},</if>
+            <if test="smT1Rate != null">sm_t1_rate = #{smT1Rate},</if>
+            <if test="smD0Rate != null">sm_d0_rate = #{smD0Rate},</if>
+            <if test="zhfwCommission != null">zhfw_commission = #{zhfwCommission},</if>
+            <if test="zhjyCommissionCap != null">zhjy_commission_cap = #{zhjyCommissionCap},</if>
+            <if test="zhjyCommissionSingle != null">zhjy_commission_single = #{zhjyCommissionSingle},</if>
+            <if test="ptjyCommissionRate != null">ptjy_commission_rate = #{ptjyCommissionRate},</if>
+            <if test="ptjyCommissionSingle != null">ptjy_commission_single = #{ptjyCommissionSingle},</if>
+            <if test="ptjyCommissionCap != null">ptjy_commission_cap = #{ptjyCommissionCap},</if>
+            <if test="smallCommissionRate != null">small_commission_rate = #{smallCommissionRate},</if>
+            <if test="smallSingle != null">small_single = #{smallSingle},</if>
+            <if test="smallT1Rate != null">small_t1_rate = #{smallT1Rate},</if>
+            <if test="zhjyT1Rate != null">zhjy_t1_rate = #{zhjyT1Rate},</if>
+            <if test="ptjyTiRate != null">ptjy_ti_rate = #{ptjyTiRate},</if>
+            <if test="kjzfSingle != null">kjzf_single = #{kjzfSingle},</if>
+            <if test="creationTime != null">creation_time = #{creationTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="note1 != null">note1 = #{note1},</if>
+            <if test="note2 != null">note2 = #{note2},</if>
+            <if test="note3 != null">note3 = #{note3},</if>
+            <if test="note4 != null">note4 = #{note4},</if>
+            <if test="note5 != null">note5 = #{note5},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSettlementTemplateById" parameterType="Long">
+        delete from settlement_template where id = #{id}
+    </delete>
+
+    <delete id="deleteSettlementTemplateByIds" parameterType="String">
+        delete from settlement_template where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
